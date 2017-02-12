@@ -6,6 +6,9 @@
 	flex-flow: row wrap;
 	border: 0px solid $header-border-color;
 	border-top-width: 2px;
+	@include respond-to(small) {
+		border-width: 0px;
+	}
 }
 
 #header-highlight {
@@ -20,6 +23,11 @@
 	border-right-width: 2px;
 	display: flex;
 	align-items: center;
+	@include respond-to(small) {
+		border-width: 0px;
+		flex: 1 0 100%;
+		justify-content: center;
+	}
 }
 
 #subtitle {
@@ -28,4 +36,9 @@
 	padding-left: 1rem;
 	padding-right: 1rem;
 	font-size: 0.7rem;
+	display: flex;
+	align-items: center;
+	@include respond-to(small) {
+		display: none;
+	}
 }

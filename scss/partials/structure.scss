@@ -19,5 +19,8 @@ html {
 }
 
 body {
-	padding: 3rem;
+	padding: 4rem;
+	@include respond-to(small) {
+		padding: 2rem;
+	}
 }
