@@ -18,7 +18,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(methodOverride('_method'));
 
-app.use(express.static('./public'));
+// app.use(express.static('./public'));
+app.get('/', (req, res) => {
+	res.render('index', {});
+});
 
 if(!module.parent) {
 	app.listen(PORT, _ => {
