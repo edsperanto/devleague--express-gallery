@@ -1,0 +1,36 @@
+{
+  "name": "devleague--express-gallery",
+  "version": "1.0.0",
+  "description": "Express Gallery ===============",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "gulp": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edsperanto/devleague--express-gallery.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edsperanto/devleague--express-gallery/issues"
+  },
+  "homepage": "https://github.com/edsperanto/devleague--express-gallery#readme",
+  "devDependencies": {
+    "body-parser": "^1.16.1",
+    "browser-sync": "^2.18.7",
+    "chai": "^3.5.0",
+    "child_process": "^1.0.2",
+    "express": "^4.14.1",
+    "express-handlebars": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "handlebars": "^4.0.6",
+    "live-reload": "^1.1.0",
+    "method-override": "^2.3.7",
+    "mocha": "^3.2.0",
+    "sequelize": "^3.30.2"
+  }
+}
