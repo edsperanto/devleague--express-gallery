@@ -34,14 +34,29 @@ app.get('/', (req, res) => {
 		});
 });
 
+app.get('/:dir/css/app.css', (req, res) => {
+	res.redirect('/css/app.css');
+});
+
+app.get('/:dir/js/app.js', (req, res) => {
+	res.redirect('/js/app.js');
+});
+
 app.get('/gallery/new', (req, res) => {
 
 });
 
 app.get('/gallery/:id', (req, res) => {
 	Photo.findOne({where:{id:req.params.id}})
-		.then(({author, link, description}) => {
-			res.json({author, link, description});
+		.then(photo => {
+			return Photo.findAll()
+				.then(photos => {
+					return gen.details(photo, photos);
+				});
+		})
+		.then(details => {
+			console.log(details);
+			res.render('detail', details);
 		});
 });
 

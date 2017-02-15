@@ -27,15 +27,37 @@ body {
     body {
       padding: 0px; } }
 
-@media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
-  #main {
-    padding: 1rem;
-    padding-top: 0px; } }
-
 a {
   color: inherit;
   cursor: pointer;
   text-decoration: none; }
+
+#main {
+  width: 100%;
+  height: 30rem;
+  display: flex;
+  flex-flow: row wrap; }
+  @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
+    #main {
+      padding: 1rem;
+      padding-top: 0px; } }
+  @media only screen and (min-device-width: 1024px) and (min-width: 965px) {
+    #main {
+      margin-top: 2rem; } }
+
+#left {
+  width: 66.6%;
+  font-size: 0.7rem; }
+  @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
+    #left {
+      width: 100%; } }
+
+#right {
+  width: 33.3%;
+  padding-left: 1rem; }
+  @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
+    #right {
+      display: none; } }
 
 #header {
   width: 100%;
@@ -81,9 +103,6 @@ a {
   width: 100%;
   overflow: auto;
   position: relative; }
-  @media only screen and (min-device-width: 1024px) and (min-width: 965px) {
-    .big-card {
-      margin-top: 2rem; } }
 
 .big-card-aspect {
   margin-bottom: 40%; }
@@ -105,8 +124,11 @@ a {
   flex-flow: row wrap;
   justify-content: space-between; }
 
+.small-card-group > .small-card {
+  width: calc(33% - 0.66rem); }
+
 .small-card {
-  width: calc(33% - 0.66rem);
+  width: 100%;
   margin-bottom: 1rem; }
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
     .small-card {
@@ -136,3 +158,18 @@ a {
   text-overflow: ellipsis;
   color: #7D777D !important;
   padding-top: 0.5rem; }
+
+#details-author-link {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #D0CDD0; }
+
+#details-img {
+  width: 100%;
+  margin-top: 0.7rem; }
+
+#details-desc {
+  color: #7D777D;
+  margin-top: 1rem; }

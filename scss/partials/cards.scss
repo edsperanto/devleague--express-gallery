@@ -2,9 +2,6 @@
 	width: 100%;
 	overflow: auto;
 	position: relative;
-	@include respond-to(large) {
-		margin-top: 2rem;
-	}
 }
 
 .big-card-aspect {
@@ -30,8 +27,12 @@
 	justify-content: space-between;
 }
 
-.small-card {
+.small-card-group > .small-card {
 	width: calc(33% - 0.66rem);
+}
+
+.small-card {
+	width: 100%;
 	margin-bottom: 1rem;
 	@include respond-to(small) {
 		width: 100%;

@@ -25,15 +25,38 @@ body {
 	}
 }
 
-#main {
-	@include respond-to(small) {
-		padding: 1rem;
-		padding-top: 0px;
-	}
-}
-
 a {
 	color: inherit;
 	cursor: pointer;
 	text-decoration: none;
+}
+
+#main {
+	width: 100%;
+	height: 30rem;
+	display: flex;
+	flex-flow: row wrap;
+	@include respond-to(small) {
+		padding: 1rem;
+		padding-top: 0px;
+	}
+	@include respond-to(large) {
+		margin-top: 2rem;
+	}
+}
+
+#left {
+	width: 66.6%;
+	font-size: 0.7rem;
+	@include respond-to(small) {
+		width: 100%;
+	}
+}
+
+#right {
+	width: 33.3%;
+	padding-left: 1rem;
+	@include respond-to(small) {
+		display: none;
+	}
 }

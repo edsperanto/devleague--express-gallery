@@ -21,14 +21,22 @@ const gen = (function() {
 			return prev;
 		}, [{smallCard: []}]);
 	}
-	function _allListing(photos) {
+	function allListing(photos) {
 		let photosList = listify(photos);
 		let bigCard = listRnd(photosList);
 		let cardGroup = groupListIn3(photosList);
 		return {bigCard, cardGroup};
 	}
+	function details(photo, photos) {
+		let details = photo.get({plain: true});
+		let photosList = listify(photos)
+			.filter(({id}) => id !== details.id);
+		let sidePane = groupListIn3(photosList)[0];
+		return {details, sidePane};
+	}
 	return {
-		allListing: _allListing
+		allListing, 
+		details
 	}
 })();
 
