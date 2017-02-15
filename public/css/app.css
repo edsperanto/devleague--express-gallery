@@ -79,13 +79,17 @@ a {
   border: 0px solid #F0F0F0;
   border-right-width: 2px;
   display: flex;
-  align-items: center; }
+  align-items: center;
+  cursor: pointer; }
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
     #title {
       font-size: 2rem;
       border-width: 0px;
       flex: 1 0 100%;
       justify-content: center; } }
+
+#title > b {
+  cursor: pointer; }
 
 #subtitle {
   color: #D0CDD0;
@@ -102,7 +106,8 @@ a {
 .big-card {
   width: 100%;
   overflow: auto;
-  position: relative; }
+  position: relative;
+  cursor: pointer; }
 
 .big-card-aspect {
   margin-bottom: 40%; }
@@ -113,7 +118,8 @@ a {
   position: absolute;
   background-color: grey;
   background-size: cover;
-  background-position: 0 0; }
+  background-position: 0 0;
+  cursor: pointer; }
 
 .small-card-group {
   width: 100%;
@@ -148,7 +154,8 @@ a {
   position: absolute;
   background-color: grey;
   background-size: cover;
-  background-position: 0 0; }
+  background-position: 0 0;
+  cursor: pointer; }
 
 .small-card-text {
   width: 100%;
@@ -159,16 +166,19 @@ a {
   color: #7D777D !important;
   padding-top: 0.5rem; }
 
+.small-card-text > p {
+  cursor: pointer; }
+
 #details-author-link {
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #D0CDD0; }
+  color: #D0CDD0;
+  margin-top: 1rem; }
 
 #details-img {
-  width: 100%;
-  margin-top: 0.7rem; }
+  width: 100%; }
 
 #details-desc {
   color: #7D777D;

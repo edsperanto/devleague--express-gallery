@@ -2,6 +2,7 @@
 	width: 100%;
 	overflow: auto;
 	position: relative;
+	cursor: pointer;
 }
 
 .big-card-aspect {
@@ -15,6 +16,7 @@
 	background-color: grey;
 	background-size: cover;
 	background-position: 0 0;
+	cursor: pointer;
 }
 
 .small-card-group {
@@ -56,6 +58,7 @@
 	background-color: grey;
 	background-size: cover;
 	background-position: 0 0;
+	cursor: pointer;
 }
 
 .small-card-text {
@@ -66,4 +69,8 @@
 	text-overflow: ellipsis;
 	color: $header-title-color !important;
 	padding-top: 0.5rem;
+}
+
+.small-card-text > p {
+	cursor: pointer;
 }
