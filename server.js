@@ -30,11 +30,19 @@ app.get('/', (req, res) => {
 		});
 });
 
+app.get('/gallery/new', (req, res) => {
+
+});
+
 app.get('/gallery/:id', (req, res) => {
 	Photo.findOne({where:{id:req.params.id}})
 		.then(({author, link, description}) => {
 			res.json({author, link, description});
 		});
+});
+
+app.get('/gallery/:id/edit', (req, res) => {
+
 });
 
 app.post('/gallery', (req, res) => {

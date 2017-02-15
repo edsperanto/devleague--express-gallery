@@ -17,13 +17,14 @@
 #title {
 	color: $header-title-color;
 	font-size: 3rem;
-	flex: 0 0 30%;
+	flex: 1 0 30%;
 	padding-right: 1rem;
 	border: 0px solid $header-border-color;
 	border-right-width: 2px;
 	display: flex;
 	align-items: center;
 	@include respond-to(small) {
+		font-size: 2rem;
 		border-width: 0px;
 		flex: 1 0 100%;
 		justify-content: center;
@@ -32,7 +33,7 @@
 
 #subtitle {
 	color: $header-subtitle-color;
-	flex: 1 0 45%;
+	flex: 0 0 360px;
 	padding-left: 1rem;
 	padding-right: 1rem;
 	font-size: 0.7rem;
