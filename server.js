@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 const methodOverride = require('method-override');
 const db = require('./models');
+const gen = require('./helper/gen');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -26,7 +27,7 @@ app.use(express.static('./public'));
 app.get('/', (req, res) => {
 	Photo.findAll()
 		.then(photos => {
-			res.render('index', photos);
+			res.render('index', gen.allListing(photos));
 		});
 });
 

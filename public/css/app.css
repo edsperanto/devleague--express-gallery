@@ -66,3 +66,18 @@ body {
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
     #subtitle {
       display: none; } }
+
+.big-card {
+  width: 100%;
+  height: 10rem;
+  background-color: orange; }
+
+.small-card-group {
+  width: 100%;
+  height: 10rem;
+  background-color: green; }
+
+.small-card {
+  width: 30%;
+  height: 5rem;
+  background-color: red; }
