@@ -20,6 +20,7 @@ html {
 
 body {
 	padding: 3rem;
+	padding-bottom: calc(1rem + 5px) !important;
 	@include respond-to(small) {
 		padding: 0px;
 	}
@@ -33,13 +34,12 @@ a {
 
 #main {
 	width: 100%;
-	height: 30rem;
 	display: flex;
 	flex-flow: row wrap;
 	margin-top: 2rem;
 	@include respond-to(small) {
-		padding: 1rem;
-		padding-top: 0px;
+		padding-left: 1rem;
+		padding-right: 1rem;
 		margin-top: 0px;
 	}
 }
@@ -58,4 +58,11 @@ a {
 	@include respond-to(small) {
 		display: none;
 	}
+}
+
+#footer {
+	color: $header-subtitle-color;
+	text-align: center;
+	font-size: 0.7rem;
+	margin-top: 1rem;
 }

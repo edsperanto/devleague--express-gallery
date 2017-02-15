@@ -37,7 +37,7 @@
 	width: 100%;
 	margin-bottom: 1rem;
 	@include respond-to(small) {
-		width: 100%;
+		width: 100% !important;
 	}
 }
 
@@ -67,7 +67,7 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	color: $header-title-color !important;
+	color: $header-title-color;
 	padding-top: 0.5rem;
 }
 
