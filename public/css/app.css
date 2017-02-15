@@ -108,6 +108,26 @@ a {
     #subtitle {
       display: none; } }
 
+#menu {
+  color: #D0CDD0;
+  font-size: 0.9rem;
+  display: flex;
+  flex-flow: row wrap;
+  border: 0px solid #D0CDD0;
+  border-right-width: 1px; }
+
+#menu > div {
+  border: 0px solid #D0CDD0;
+  border-left-width: 1px;
+  padding-left: 1rem;
+  padding-right: 1rem; }
+
+#welcome {
+  flex: 1 0 5rem; }
+
+#edit, #discard, #done {
+  display: none; }
+
 .big-card {
   width: 100%;
   overflow: auto;
