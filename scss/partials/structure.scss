@@ -36,12 +36,11 @@ a {
 	height: 30rem;
 	display: flex;
 	flex-flow: row wrap;
+	margin-top: 2rem;
 	@include respond-to(small) {
 		padding: 1rem;
 		padding-top: 0px;
-	}
-	@include respond-to(large) {
-		margin-top: 2rem;
+		margin-top: 0px;
 	}
 }
 

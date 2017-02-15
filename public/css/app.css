@@ -36,14 +36,13 @@ a {
   width: 100%;
   height: 30rem;
   display: flex;
-  flex-flow: row wrap; }
+  flex-flow: row wrap;
+  margin-top: 2rem; }
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
     #main {
       padding: 1rem;
-      padding-top: 0px; } }
-  @media only screen and (min-device-width: 1024px) and (min-width: 965px) {
-    #main {
-      margin-top: 2rem; } }
+      padding-top: 0px;
+      margin-top: 0px; } }
 
 #left {
   width: 66.6%;
