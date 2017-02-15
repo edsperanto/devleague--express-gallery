@@ -1,10 +1,16 @@
 #menu {
+	width: 100%;
 	color: $header-subtitle-color;
 	font-size: 0.9rem;
 	display: flex;
 	flex-flow: row wrap;
 	border: 0px solid $header-subtitle-color;
 	border-right-width: 1px;
+	@include respond-to(small) {
+		border-width: 0px;
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
 }
 
 #menu > div {
@@ -12,10 +18,18 @@
 	border-left-width: 1px;
 	padding-left: 1rem;
 	padding-right: 1rem;
+	@include respond-to(small) {
+		border-width: 0px;
+		padding-left: 0px;
+	}
 }
 
 #welcome {
 	flex: 1 0 5rem;
+	@include respond-to(small) {
+		width: 100% !important;
+		padding-left: 0rem;
+	}
 }
 
 #edit, #discard, #done {

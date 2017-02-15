@@ -28,10 +28,8 @@ app.use(methodOverride('_method'));
 app.use(express.static('./public'));
 
 app.get('/', (req, res) => {
-	Photo.findAll()
-		.then(photos => {
-			res.render('index', gen.allListing(photos));
-		});
+	gen.allListing(Photo)
+		.then(data => res.render('index', data));
 });
 
 app.get('/:dir/css/app.css', (req, res) => {
@@ -48,16 +46,8 @@ app.get('/gallery/new', (req, res) => {
 
 app.get('/gallery/:id', (req, res) => {
 	Photo.findOne({where:{id:req.params.id}})
-		.then(photo => {
-			return Photo.findAll()
-				.then(photos => {
-					return gen.details(photo, photos);
-				});
-		})
-		.then(details => {
-			console.log(details);
-			res.render('detail', details);
-		});
+		.then(photo => gen.details(photo, Photo))
+		.then(details => res.render('detail', details));
 });
 
 app.get('/gallery/:id/edit', (req, res) => {

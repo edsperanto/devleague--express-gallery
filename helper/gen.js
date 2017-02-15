@@ -1,9 +1,12 @@
 const gen = (function() {
-	function listify(photos) {
-		return photos.reduceRight((prev, curr) => {
-			prev.push(curr.get({plain: true}));
-			return prev;
-		}, []);
+	function listify(table) {
+		return table.findAll()
+			.then(table => {
+				return table.reduceRight((prev, curr) => {
+					prev.push(curr.get({plain: true}));
+					return prev;
+				}, []);
+			});
 	}
 	function listRnd(list) {
 		let len = list.length;
@@ -22,18 +25,20 @@ const gen = (function() {
 		}, [{smallCard: []}]);
 	}
 	function allListing(photos) {
-		let photosList = listify(photos);
-		let bigCard = listRnd(photosList);
-		let cardGroup = groupListIn3(photosList);
-		return {bigCard, cardGroup};
+		return listify(photos)
+			.then(tableList => {
+				let bigCard = listRnd(tableList);
+				let cardGroup = groupListIn3(tableList);
+				return {bigCard, cardGroup};
+			});
 	}
-	function details(photo, photos) {
+	function details(item, table) {
 		let i = 3;
-		let details = photo.get({plain: true});
-		let photosList = listify(photos)
+		let details = item.get({plain: true});
+		let tableList = listify(table)
 			.filter(({id}) => id !== details.id);
 		let sidePane = {smallCard: []};
-		while(i--) sidePane.smallCard.push(listRnd(photosList));
+		while(i--) sidePane.smallCard.push(listRnd(tableList));
 		return {details, sidePane};
 	}
 	return { allListing, details };

@@ -109,21 +109,35 @@ a {
       display: none; } }
 
 #menu {
+  width: 100%;
   color: #D0CDD0;
   font-size: 0.9rem;
   display: flex;
   flex-flow: row wrap;
   border: 0px solid #D0CDD0;
   border-right-width: 1px; }
+  @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
+    #menu {
+      border-width: 0px;
+      padding-left: 1rem;
+      padding-right: 1rem; } }
 
 #menu > div {
   border: 0px solid #D0CDD0;
   border-left-width: 1px;
   padding-left: 1rem;
   padding-right: 1rem; }
+  @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
+    #menu > div {
+      border-width: 0px;
+      padding-left: 0px; } }
 
 #welcome {
   flex: 1 0 5rem; }
+  @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
+    #welcome {
+      width: 100% !important;
+      padding-left: 0rem; } }
 
 #edit, #discard, #done {
   display: none; }
