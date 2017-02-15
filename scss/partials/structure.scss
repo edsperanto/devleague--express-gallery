@@ -24,3 +24,10 @@ body {
 		padding: 0px;
 	}
 }
+
+#main {
+	@include respond-to(small) {
+		padding: 1rem;
+		padding-top: 0px;
+	}
+}

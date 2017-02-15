@@ -14,11 +14,10 @@ const gen = (function() {
 	function groupListIn3(list) {
 		return list.reduce((prev, curr) => {
 			let last = prev.length - 1;
-			if(prev[last].smallCard.length < 3) {
+			if(prev[last].smallCard.length < 3)
 				prev[last].smallCard.push(curr);
-			}else{
+			else
 				prev.push({smallCard: [curr]});
-			}
 			return prev;
 		}, [{smallCard: []}]);
 	}
