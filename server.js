@@ -30,11 +30,19 @@ app.get('/', (req, res) => {
 		});
 });
 
+
 app.post('/gallery', (req, res) => {
 	var {author, link, description} = req.body;
 	Photo.create({author, link, description})
 		.then(photo => {
 			res.json(photo);
+		})
+		.catch(err => {
+			let errMsg = err.errors.reduce((prev, {message, path}) => {
+				prev[path] = message;
+				return prev;
+			}, {});
+			res.json(errMsg);
 		});
 });
 
