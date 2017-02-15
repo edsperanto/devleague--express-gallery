@@ -30,6 +30,12 @@ app.get('/', (req, res) => {
 		});
 });
 
+app.get('/gallery/:id', (req, res) => {
+	Photo.findOne({where:{id:req.params.id}})
+		.then(({author, link, description}) => {
+			res.json({author, link, description});
+		});
+});
 
 app.post('/gallery', (req, res) => {
 	var {author, link, description} = req.body;
@@ -38,13 +44,28 @@ app.post('/gallery', (req, res) => {
 			res.json(photo);
 		})
 		.catch(err => {
-			let errMsg = err.errors.reduce((prev, {message, path}) => {
-				prev[path] = message;
-				return prev;
-			}, {});
+			let errMsg = {};
+			err.errors.forEach(({message, path}) => {
+				errMsg[path] = message;
+			});
 			res.json(errMsg);
 		});
 });
+
+app.put('/gallery/:id', (req, res) => {
+	var {author, link, description} = req.body;
+	Photo.update(
+		{author, link, description},
+		{where: {id: req.params.id}}
+	);
+});
+
+app.delete('/gallery/:id', (req, res) => {
+	Photo.destroy({where: {id: req.params.id}})
+		.then(id => {
+			res.json({success: true});
+		});
+})
 
 if(!module.parent) {
 	app.listen(PORT, _ => {
