@@ -5,6 +5,7 @@ const handlebars = require('express-handlebars');
 const methodOverride = require('method-override');
 const db = require('./models');
 const gen = require('./helper/gen');
+const initialize = require('./helper/initialize');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -14,6 +15,8 @@ const hbs = handlebars.create({
 	extname: '.hbs',
 	defaultLayout: 'app'
 });
+
+initialize(Photo);
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
