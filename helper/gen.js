@@ -28,10 +28,12 @@ const gen = (function() {
 		return {bigCard, cardGroup};
 	}
 	function details(photo, photos) {
+		let i = 3;
 		let details = photo.get({plain: true});
 		let photosList = listify(photos)
 			.filter(({id}) => id !== details.id);
-		let sidePane = groupListIn3(photosList)[0];
+		let sidePane = {smallCard: []};
+		while(i--) sidePane.smallCard.push(listRnd(photosList));
 		return {details, sidePane};
 	}
 	return {

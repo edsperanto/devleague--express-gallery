@@ -1,5 +1,5 @@
-(function() {
-	const title = document.getElementsByClassName('title');
+(function main() {
+	const title = [document.getElementById('title')];
 	const bigCards = document.getElementsByClassName('big-card');
 	const smallCards = document.getElementsByClassName('small-card');
 	const redirTo = link => window.location.href = link;
