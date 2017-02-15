@@ -1,6 +1,6 @@
 const gen = (function() {
 	function listify(photos) {
-		return photos.reduce((prev, curr) => {
+		return photos.reduceRight((prev, curr) => {
 			prev.push(curr.get({plain: true}));
 			return prev;
 		}, []);
@@ -36,10 +36,7 @@ const gen = (function() {
 		while(i--) sidePane.smallCard.push(listRnd(photosList));
 		return {details, sidePane};
 	}
-	return {
-		allListing, 
-		details
-	}
+	return { allListing, details };
 })();
 
 module.exports = gen;
