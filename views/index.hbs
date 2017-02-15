@@ -1,4 +1,6 @@
-{{> bigCard}}
+{{#with bigCard}}
+	{{> bigCard}}
+{{/with}}
 {{#each cardGroup}}
 	{{> smallCardGroup}}
 {{/each}}
