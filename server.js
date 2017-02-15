@@ -45,9 +45,8 @@ app.get('/gallery/new', (req, res) => {
 });
 
 app.get('/gallery/:id', (req, res) => {
-	Photo.findOne({where:{id:req.params.id}})
-		.then(photo => gen.details(photo, Photo))
-		.then(details => res.render('detail', details));
+	gen.details(req.params.id, Photo)
+		.then(data => res.render('detail', data));
 });
 
 app.get('/gallery/:id/edit', (req, res) => {

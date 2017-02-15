@@ -24,22 +24,25 @@ const gen = (function() {
 			return prev;
 		}, [{smallCard: []}]);
 	}
-	function allListing(photos) {
-		return listify(photos)
+	function allListing(table) {
+		return listify(table)
 			.then(tableList => {
 				let bigCard = listRnd(tableList);
 				let cardGroup = groupListIn3(tableList);
 				return {bigCard, cardGroup};
 			});
 	}
-	function details(item, table) {
-		let i = 3;
-		let details = item.get({plain: true});
-		let tableList = listify(table)
-			.filter(({id}) => id !== details.id);
-		let sidePane = {smallCard: []};
-		while(i--) sidePane.smallCard.push(listRnd(tableList));
-		return {details, sidePane};
+	function details(itemId, table) {
+		let item = table.findOne({where: {id: itemId}})
+			.then(item => item.get({plain: true}));
+		let list = listify(table);
+		return Promise.all([item, list])
+			.then(([details, tableList]) => {
+				let i = 3, sidePane = {smallCard: []};
+				tableList = tableList.filter(({id}) => id !== details.id);
+				while(i--) sidePane.smallCard.push(listRnd(tableList));
+				return {details, sidePane};
+			});
 	}
 	return { allListing, details };
 })();
