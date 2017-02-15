@@ -15,9 +15,9 @@ const gen = (function() {
 		return list.reduce((prev, curr) => {
 			let last = prev.length - 1;
 			if(prev[last].smallCard.length < 3) {
-				prev[last].smallCard.push(listRnd(list));
+				prev[last].smallCard.push(curr);
 			}else{
-				prev.push({smallCard: [listRnd(list)]});
+				prev.push({smallCard: [curr]});
 			}
 			return prev;
 		}, [{smallCard: []}]);
@@ -26,7 +26,6 @@ const gen = (function() {
 		let photosList = listify(photos);
 		let bigCard = listRnd(photosList);
 		let cardGroup = groupListIn3(photosList);
-		console.log(cardGroup);
 		return {bigCard, cardGroup};
 	}
 	return {
