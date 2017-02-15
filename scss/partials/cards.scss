@@ -61,7 +61,8 @@
 	width: 100%;
 	font-size: 0.7rem;
 	overflow: hidden;
-	word-wrap: break-word;
-	color: $header-subtitle-color;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: $header-title-color !important;
 	padding-top: 0.5rem;
 }
