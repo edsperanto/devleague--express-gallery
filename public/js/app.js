@@ -3,7 +3,7 @@
 	// get elements
 	const [title, bigCards, smallCards] = ['title', 'big-card', 'small-card']
 		.map(card => document.getElementsByClassName(card));
-	const [newBtn, editBtn, discardBtn, doneBtn] = ['new', 'edit', 'discard', 'done']
+	const [newBtn, editBtn, discardBtn, doneBtn, form] = ['new', 'edit', 'discard', 'done', 'form']
 		.map(btn => document.getElementById(btn));
 
 	// make cards link
@@ -20,7 +20,7 @@
 	const onClick = (btn, cb) => btn.addEventListener('click', cb);
 	const show = btns => btns.forEach(btn => btn.parentElement.style.display = 'initial');	
 	const [itemRE, itemNewRE, itemEditRE] =
-		[/^\/gallery\/[0-9]+$/g, /^\/gallery\/new$/g, /^\/gallery\/[0-9]+\/edits$/g];
+		[/^\/gallery\/[0-9]+$/g, /^\/gallery\/new$/g, /^\/gallery\/[0-9]+\/edit$/g];
 	switch(true) {
 		case itemNewRE.test(url): show([discardBtn, doneBtn]); break;
 		case itemRE.test(url): show([newBtn, editBtn]); break;
@@ -34,12 +34,15 @@
 		redirTo('/gallery/new');
 	}
 	function edit() {
-
+		redirTo(window.location.href += '/edit');
 	}
 	function discard() {
 
 	}
 	function done() {
-
+		switch(true) {
+			case itemNewRE.test(url): form.submit(); break;
+		}
 	}
+
 })();

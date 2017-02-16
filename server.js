@@ -36,7 +36,6 @@ app.get('/gallery/new', (req, res) => {
 	gen.details("1", Photo)
 		.then(data => {
 			data.details.creating = true;
-			console.log("creating new");
 			return data;
 		})
 		.then(data => res.render('detail', data));
@@ -63,9 +62,8 @@ app.get('/gallery/:id/edit', (req, res) => {
 app.post('/gallery', (req, res) => {
 	var {author, link, description} = req.body;
 	Photo.create({author, link, description})
-		.then(photo => {
-			res.json(photo);
-		})
+		.then(photo => Photo.findOne({where: {author, link, description}}))
+		.then(({id}) => res.redirect(`/gallery/${id}`))
 		.catch(err => {
 			let errMsg = {};
 			err.errors.forEach(({message, path}) => {

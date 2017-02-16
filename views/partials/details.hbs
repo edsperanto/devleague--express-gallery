@@ -7,6 +7,7 @@
 {{#if editing}}
 <form id="form" action="/gallery/{{id}}" method="PUT">
 	<table>
+		<input type="hidden" name="id" value="{{id}}">
 		<tr>
 			<td>Author</td>
 			<td><input id="author" type="text" name="author" placeholder="{{author}}"></td>
@@ -17,14 +18,14 @@
 		</tr>
 		<tr>
 			<td>Description</td>
-			<td><input id="desc" type="text" name="desc" placeholder="{{description}}"></td>
+			<td><input id="desc" type="text" name="description" placeholder="{{description}}"></td>
 		</tr>
 	</table>
 </form>
 {{/if}}
 
 {{#if creating}}
-<form id="form" action="/gallery/{{id}}" method="PUT">
+<form id="form" action="/gallery" method="POST">
 	<table>
 		<tr>
 			<td>Author</td>
@@ -36,7 +37,7 @@
 		</tr>
 		<tr>
 			<td>Description</td>
-			<td><input id="desc" type="text" name="desc"></td>
+			<td><input id="desc" type="text" name="description"></td>
 		</tr>
 	</table>
 </form>
