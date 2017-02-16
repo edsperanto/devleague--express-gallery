@@ -159,6 +159,8 @@ a {
     padding-right: 1rem;
     border: 0px solid #D0CDD0;
     border-left-width: 1px; }
+  #actions > div {
+    display: none; }
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
     #actions {
       margin: 1rem;
@@ -173,13 +175,8 @@ a {
   margin-right: 0.5rem; }
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
     .sep {
-      display: inline-block;
+      display: initial !important;
       margin-right: 0.8rem; } }
-
-#new, #edit, #discard, #done {
-  display: none; }
-  #new + .sep, #edit + .sep, #discard + .sep, #done + .sep {
-    display: none; }
 
 .big-card {
   width: 100%;

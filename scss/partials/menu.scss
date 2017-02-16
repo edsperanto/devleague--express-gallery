@@ -54,6 +54,9 @@
 		border: 0px solid $header-subtitle-color;
 		border-left-width: 1px;
 	}
+	& > div {
+		display: none;
+	}
 	@include respond-to(small) {
 		margin: 1rem;
 		margin-bottom: 0px;
@@ -69,14 +72,7 @@
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
 	@include respond-to(small) {
-		display: inline-block;
+		display: initial !important;
 		margin-right: 0.8rem;
-	}
-}
-
-#new, #edit, #discard, #done {
-	display: none;
-	& + .sep {
-		display: none;
 	}
 }

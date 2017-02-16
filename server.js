@@ -32,19 +32,20 @@ app.get('/', (req, res) => {
 		.then(data => res.render('index', data));
 });
 
-app.get('/gallery/:id', (req, res) => {
-	gen.details(req.params.id, Photo)
+app.get('/gallery/new', (req, res) => {
+	gen.details("1", Photo)
 		.then(data => {
-			data.details.viewing = true;
+			data.details.creating = true;
+			console.log("creating new");
 			return data;
 		})
 		.then(data => res.render('detail', data));
 });
 
-app.get('/gallery/new', (req, res) => {
+app.get('/gallery/:id', (req, res) => {
 	gen.details(req.params.id, Photo)
 		.then(data => {
-			data.details.creating = true;
+			data.details.viewing = true;
 			return data;
 		})
 		.then(data => res.render('detail', data));

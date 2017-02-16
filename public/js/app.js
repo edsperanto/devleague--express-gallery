@@ -27,35 +27,26 @@
 	// control menu display
 	const url = window.location.pathname;
 	const onClick = (btn, cb) => btn.addEventListener('click', cb);
-	const show = btns => btns.forEach(btn => btn.style.display = 'initial');
+	const show = btns => btns.forEach(btn => btn.parentElement.style.display = 'initial');	
 	const itemNewRE = new RegExp("^/gallery/new$", "g");
 	const itemRE = new RegExp("^\/gallery/[0-9]+$", "g");
 	const itemEditRE = new RegExp("^\/gallery/[0-9]+/edit$", "g");
 	switch(true) {
 		case itemNewRE.test(url):
-			show([discardBtn, doneBtn]);
-			onClick(discardBtn, discard);
-			onClick(doneBtn, done);
-			break;
+			show([discardBtn, doneBtn]); break;
 		case itemRE.test(url):
-			show([newBtn, editBtn]);
-			onClick(newBtn, create);
-			onClick(editBtn, edit);
-			break;
+			show([newBtn, editBtn]); break;
 		case itemEditRE.test(url):
-			show([discardBtn, doneBtn]);
-			onClick(discardBtn, discard);
-			onClick(doneBtn, done);
-			break;
+			show([discardBtn, doneBtn]); break;
 		default:
-			show([newBtn]);
-			onClick(newBtn, create);
-			break;
+			show([newBtn]); break;
 	}
+	onClick(newBtn, create);
+	onClick(editBtn, edit);
 
 	// button actions
 	function create() {
-
+		redirTo('/gallery/new');
 	}
 	function edit() {
 
