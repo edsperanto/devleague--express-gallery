@@ -4,24 +4,15 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width" />
 		<title>express gallery</title>
-		<link rel="stylesheet" type="text/css" href="css/app.css">
+		<link rel="stylesheet" type="text/css" href="/css/app.css">
 	</head>
 	<body>
 		{{> header}}
-		<div id="menu">
-			<div id="welcome">
-				<span>welcome back,&nbsp;</span>
-				<a id="login">anonymous</a>
-			</div>
-			<div id="new">submit new</div>
-			<div id="edit">edit</div>
-			<div id="discard">discard</div>
-			<div id="done">done</div>
-		</div>
+		{{> menu}}
 		<div id="main">
 		{{{body}}}
 		</div>
 		{{> footer}}
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
 	</body>
 </html>

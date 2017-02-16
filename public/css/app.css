@@ -119,28 +119,67 @@ a {
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
     #menu {
       border-width: 0px;
-      padding-left: 1rem;
-      padding-right: 1rem; } }
+      padding: 0px;
+      margin-bottom: 1rem; } }
 
 #menu > div {
-  border: 0px solid #D0CDD0;
-  border-left-width: 1px;
-  padding-left: 1rem;
-  padding-right: 1rem; }
+  padding-left: 1rem; }
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
     #menu > div {
-      border-width: 0px;
-      padding-left: 0px; } }
+      width: 100%;
+      padding-left: 0px;
+      padding-right: 0px;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center; } }
 
 #welcome {
+  border: 0px solid #D0CDD0;
+  border-left-width: 1px;
   flex: 1 0 5rem; }
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
     #welcome {
-      width: 100% !important;
-      padding-left: 0rem; } }
+      padding: 3px;
+      color: white;
+      text-align: center;
+      background-color: #7D777D; } }
 
-#edit, #discard, #done {
+#login {
+  color: #7D777D; }
+  @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
+    #login {
+      color: white; } }
+
+#actions {
+  display: flex;
+  flex-flow: row wrap; }
+  #actions > div > a {
+    color: #7D777D;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: 0px solid #D0CDD0;
+    border-left-width: 1px; }
+  @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
+    #actions {
+      margin: 1rem;
+      margin-bottom: 0px; }
+      #actions > div > a {
+        border-width: 0px;
+        padding: 0px; } }
+
+.sep {
+  display: none;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem; }
+  @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
+    .sep {
+      display: inline-block;
+      margin-right: 0.8rem; } }
+
+#new, #edit, #discard, #done {
   display: none; }
+  #new + .sep, #edit + .sep, #discard + .sep, #done + .sep {
+    display: none; }
 
 .big-card {
   width: 100%;
@@ -199,14 +238,14 @@ a {
 .small-card-text {
   width: 100%;
   font-size: 0.7rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   color: #7D777D;
   padding-top: 0.5rem; }
 
 .small-card-text > p {
-  cursor: pointer; }
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
 
 #details-author-link {
   width: 100%;
@@ -222,3 +261,7 @@ a {
 #details-desc {
   color: #7D777D;
   margin-top: 1rem; }
+
+#form {
+  color: #7D777D;
+  font-size: 1rem; }

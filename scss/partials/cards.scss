@@ -64,13 +64,13 @@
 .small-card-text {
 	width: 100%;
 	font-size: 0.7rem;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 	color: $header-title-color;
 	padding-top: 0.5rem;
 }
 
 .small-card-text > p {
 	cursor: pointer;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }

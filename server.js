@@ -32,25 +32,31 @@ app.get('/', (req, res) => {
 		.then(data => res.render('index', data));
 });
 
-app.get('/:dir/css/app.css', (req, res) => {
-	res.redirect('/css/app.css');
-});
-
-app.get('/:dir/js/app.js', (req, res) => {
-	res.redirect('/js/app.js');
+app.get('/gallery/:id', (req, res) => {
+	gen.details(req.params.id, Photo)
+		.then(data => {
+			data.details.viewing = true;
+			return data;
+		})
+		.then(data => res.render('detail', data));
 });
 
 app.get('/gallery/new', (req, res) => {
-
-});
-
-app.get('/gallery/:id', (req, res) => {
 	gen.details(req.params.id, Photo)
+		.then(data => {
+			data.details.creating = true;
+			return data;
+		})
 		.then(data => res.render('detail', data));
 });
 
 app.get('/gallery/:id/edit', (req, res) => {
-
+	gen.details(req.params.id, Photo)
+		.then(data => {
+			data.details.editing = true;
+			return data;
+		})
+		.then(data => res.render('detail', data));
 });
 
 app.post('/gallery', (req, res) => {

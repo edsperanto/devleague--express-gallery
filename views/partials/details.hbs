@@ -1,3 +1,24 @@
+{{#if viewing}}
 <img src="{{link}}" alt="{{description}}" id="details-img">
 <p id="details-author-link"><b>{{author}} - <a href="{{link}}">{{link}}</a></b></p>
 <p id="details-desc">{{description}}</p>
+{{/if}}
+
+{{#if editing}}
+<form id="form" action="/gallery/{{id}}" method="PUT">
+	<table>
+		<tr>
+			<td>Author</td>
+			<td><input id="author" type="text" name="author" placeholder="{{author}}"></td>
+		</tr>
+		<tr>
+			<td>Link</td>
+			<td><input id="link" type="text" name="link" placeholder="{{link}}"></td>
+		</tr>
+		<tr>
+			<td>Description</td>
+			<td><input id="desc" type="text" name="desc" placeholder="{{description}}"></td>
+		</tr>
+	</table>
+</form>
+{{/if}}

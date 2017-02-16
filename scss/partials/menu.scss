@@ -8,30 +8,75 @@
 	border-right-width: 1px;
 	@include respond-to(small) {
 		border-width: 0px;
-		padding-left: 1rem;
-		padding-right: 1rem;
+		padding: 0px;
+		margin-bottom: 1rem;
 	}
 }
 
 #menu > div {
-	border: 0px solid $header-subtitle-color;
-	border-left-width: 1px;
 	padding-left: 1rem;
-	padding-right: 1rem;
 	@include respond-to(small) {
-		border-width: 0px;
+		width: 100%;
 		padding-left: 0px;
+		padding-right: 0px;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
 	}
 }
 
 #welcome {
+	border: 0px solid $header-subtitle-color;
+	border-left-width: 1px;
 	flex: 1 0 5rem;
 	@include respond-to(small) {
-		width: 100% !important;
-		padding-left: 0rem;
+		padding: 3px;
+		color: white;
+		text-align: center;
+		background-color: $header-title-color;
+	}
+} 
+
+#login {
+	color: $header-title-color;
+	@include respond-to(small) {
+		color: white;
 	}
 }
 
-#edit, #discard, #done {
+#actions {
+	display: flex;
+	flex-flow: row wrap;
+	& > div > a {
+		color: $header-title-color;
+		padding-left: 1rem;
+		padding-right: 1rem;
+		border: 0px solid $header-subtitle-color;
+		border-left-width: 1px;
+	}
+	@include respond-to(small) {
+		margin: 1rem;
+		margin-bottom: 0px;
+		& > div > a {
+			border-width: 0px;
+			padding: 0px;
+		}
+	}
+}
+
+.sep {
 	display: none;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	@include respond-to(small) {
+		display: inline-block;
+		margin-right: 0.8rem;
+	}
+}
+
+#new, #edit, #discard, #done {
+	display: none;
+	& + .sep {
+		display: none;
+	}
 }
