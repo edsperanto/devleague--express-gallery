@@ -3,7 +3,8 @@
 	// get elements
 	const [title, bigCards, smallCards] = ['title', 'big-card', 'small-card']
 		.map(card => document.getElementsByClassName(card));
-	const [newBtn, editBtn, discardBtn, doneBtn, form] = ['new', 'edit', 'discard', 'done', 'form']
+	const [newBtn, editBtn, discardBtn, doneBtn, loginBtn, form] = 
+		['new', 'edit', 'discard', 'done', 'login', 'form']
 		.map(btn => document.getElementById(btn));
 
 	// make cards link
@@ -20,19 +21,21 @@
 	const edit = _ => redirTo(url+'/edit');
 	const discard = _ => redirTo(url.match(/\/gallery\/[0-9A-z]+/g)[0]);
 	const done = _ => form.submit();
+	const login = _ => redirTo('/login');
 
 	// control menu display
 	const url = window.location.pathname;
 	const onClick = (btn, cb) => btn.addEventListener('click', cb);
 	const show = btns => btns.forEach(btn => btn.parentElement.style.display = 'initial');	
-	const [itemRE, itemNewRE, itemEditRE] =
-		[/^\/gallery\/[0-9]+$/g, /^\/gallery\/new$/g, /^\/gallery\/[0-9]+\/edit$/g];
+	const [itemRE, itemEditRE] =
+		[/^\/gallery\/[0-9]+$/g, /^\/gallery\/[0-9]+\/edit$/g];
 	switch(true) {
-		case itemNewRE.test(url): show([discardBtn, doneBtn]); break;
+		case url === '/gallery/new': show([discardBtn, doneBtn]); break;
 		case itemRE.test(url): show([newBtn, editBtn]); break;
 		case itemEditRE.test(url): show([discardBtn, doneBtn]); break;
 		default: show([newBtn]); break;
 	}
 	repeat(onClick, [[newBtn, create], [editBtn, edit], [discardBtn, discard], [doneBtn, done]]);
+	onClick(loginBtn, login);
 
 })();

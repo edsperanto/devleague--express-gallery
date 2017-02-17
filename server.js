@@ -31,7 +31,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
+app.use(session({secret: CONFIG.SESSION_SECRET}));
 app.use(passport.initialize());
+app.use(passport.session());
 
 const authenticate = (username, password) => {
   // get user data from the DB
@@ -61,6 +63,14 @@ passport.use(new LocalStrategy(
   }
 ));
 
+passport.serializeUser(function(user, done) {
+	return done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+	return done(null, user);
+});
+
 app.use(express.static('./public'));
 app.use('/gallery', gallery);
 
@@ -79,9 +89,18 @@ app.post('/login', passport.
 		failureRedirect: '/login'
 	}));
 
-app.get('/secret', (req, res) => {
+app.get('/secret', isAuthenticated, (req, res) => {
 	res.send('this is my first secret page');
 });
+
+function isAuthenticated(req, res, next) {
+	if(req.isAuthenticated()) {
+		next();
+	}else{
+		console.log('NOPE');
+		res.redirect('/login');
+	}
+}
 
 if(!module.parent) {
 	app.listen(PORT, _ => {
