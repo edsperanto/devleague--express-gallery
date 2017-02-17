@@ -3,9 +3,6 @@ module.exports = function(sequelize, DataTypes) {
 		author: { 
 			type: DataTypes.TEXT, 
 			allowNull: false,
-			validate: { 
-				is: /^[A-Z][A-z]+(?:\ [A-Z][A-z]+)*$/g
-			}	
 		},
 		link: { 
 			type: DataTypes.TEXT, 
@@ -17,9 +14,6 @@ module.exports = function(sequelize, DataTypes) {
 		description: { 
 			type: DataTypes.TEXT, 
 			allowNull: false,
-			validate: {
-				is: /^[0-9A-z\ \?\.,\!-\$%\/]+$/g
-			}	
 		}
 	});
 
