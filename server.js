@@ -78,7 +78,8 @@ app.put('/gallery/:id', (req, res) => {
 	Photo.update(
 		{author, link, description},
 		{where: {id: req.params.id}}
-	);
+	)
+		.then(_ => res.redirect(`/gallery/${req.params.id}`));
 });
 
 app.delete('/gallery/:id', (req, res) => {

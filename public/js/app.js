@@ -15,6 +15,12 @@
 	});
 	repeat(link, [[bigCards, 'card'], [smallCards, 'card'], [title, 'home']]);
 
+	// button actions
+	const create = _ => redirTo('/gallery/new');
+	const edit = _ => redirTo(url+'/edit');
+	const discard = _ => redirTo(url.match(/\/gallery\/[0-9A-z]+/g)[0]);
+	const done = _ => form.submit();
+
 	// control menu display
 	const url = window.location.pathname;
 	const onClick = (btn, cb) => btn.addEventListener('click', cb);
@@ -28,21 +34,5 @@
 		default: show([newBtn]); break;
 	}
 	repeat(onClick, [[newBtn, create], [editBtn, edit], [discardBtn, discard], [doneBtn, done]]);
-
-	// button actions
-	function create() {
-		redirTo('/gallery/new');
-	}
-	function edit() {
-		redirTo(window.location.href += '/edit');
-	}
-	function discard() {
-
-	}
-	function done() {
-		switch(true) {
-			case itemNewRE.test(url): form.submit(); break;
-		}
-	}
 
 })();

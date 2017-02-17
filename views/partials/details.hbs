@@ -5,7 +5,7 @@
 {{/if}}
 
 {{#if editing}}
-<form id="form" action="/gallery/{{id}}" method="PUT">
+<form id="form" action="/gallery/{{id}}?_method=PUT" method="POST">
 	<table>
 		<input type="hidden" name="id" value="{{id}}">
 		<tr>
