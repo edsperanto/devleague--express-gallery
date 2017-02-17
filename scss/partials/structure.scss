@@ -65,4 +65,7 @@ a {
 	text-align: center;
 	font-size: 0.7rem;
 	margin-top: 1rem;
+	@include respond-to(small) {
+		display: none;
+	}
 }
