@@ -9,16 +9,16 @@
 	<table>
 		<input type="hidden" name="id" value="{{id}}">
 		<tr>
-			<td>Author</td>
+			<td class="label">Author</td>
 			<td><input id="author" type="text" name="author" placeholder="{{author}}"></td>
 		</tr>
 		<tr>
-			<td>Link</td>
+			<td class="label">Link</td>
 			<td><input id="link" type="text" name="link" placeholder="{{link}}"></td>
 		</tr>
 		<tr>
-			<td>Description</td>
-			<td><input id="desc" type="text" name="description" placeholder="{{description}}"></td>
+			<td class="label">Description</td>
+			<td><textarea id="desc" name="description" placeholder="{{description}}"></textarea></td>
 		</tr>
 	</table>
 </form>
@@ -28,15 +28,15 @@
 <form id="form" action="/gallery" method="POST">
 	<table>
 		<tr>
-			<td>Author</td>
+			<td class="label">Author</td>
 			<td><input id="author" type="text" name="author"></td>
 		</tr>
 		<tr>
-			<td>Link</td>
+			<td class="label">Link</td>
 			<td><input id="link" type="text" name="link"></td>
 		</tr>
 		<tr>
-			<td>Description</td>
+			<td class="label">Description</td>
 			<td><input id="desc" type="text" name="description"></td>
 		</tr>
 	</table>
