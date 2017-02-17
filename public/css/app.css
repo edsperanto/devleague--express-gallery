@@ -279,7 +279,6 @@ tr {
       margin-bottom: 20px; } }
 
 td {
-  width: 100%;
   padding: 0.3rem;
   position: relative; }
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
@@ -304,7 +303,7 @@ input, textarea {
       margin-left: 8px; } }
 
 .label {
-  width: 10rem;
+  width: 6rem;
   color: #7D777D; }
 
 #desc {

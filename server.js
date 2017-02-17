@@ -9,6 +9,11 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const gallery = require('./routes/gallery');
 
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const CONFIG = require('./config/config.json');
+
 const db = require('./models');
 const { Photo } = db;
 
@@ -26,12 +31,56 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
+app.use(passport.initialize());
+
+const authenticate = (username, password) => {
+  // get user data from the DB
+  const { USER, PASSWORD } = CONFIG;
+
+  // check if the user is authenticated or not
+  return ( username === USER && password === PASSWORD );
+};
+
+passport.use(new LocalStrategy(
+  function (username, password, done) {
+    console.log('username, password: ', username, password);
+    // check if the user is authenticated or not
+    if( authenticate(username, password) ) {
+
+      // User data from the DB
+      const user = {
+        name: 'Joe',
+        role: 'admin',
+        favColor: 'green',
+        isAdmin: true,
+      };
+
+      return done(null, user); // no error, and data = user
+    }
+    return done(null, false); // error and authenticted = false
+  }
+));
+
 app.use(express.static('./public'));
 app.use('/gallery', gallery);
 
 app.get('/', (req, res) => {
 	gen.allListing(Photo)
 		.then(data => res.render('index', data));
+});
+
+app.get('/login', (req, res) => {
+	res.render('login');
+});
+
+app.post('/login', passport.
+	authenticate('local', {
+		successRedirect: '/secret',
+		failureRedirect: '/login'
+	}));
+
+app.get('/secret', (req, res) => {
+	res.send('this is my first secret page');
 });
 
 if(!module.parent) {
