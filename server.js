@@ -85,7 +85,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', passport.
 	authenticate('local', {
-		successRedirect: '/secret',
+		successRedirect: '/',
 		failureRedirect: '/login'
 	}));
 
@@ -97,7 +97,6 @@ function isAuthenticated(req, res, next) {
 	if(req.isAuthenticated()) {
 		next();
 	}else{
-		console.log('NOPE');
 		res.redirect('/login');
 	}
 }

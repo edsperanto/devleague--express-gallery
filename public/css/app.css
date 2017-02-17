@@ -147,10 +147,10 @@ a {
       text-align: center;
       background-color: #7D777D; } }
 
-#login {
+#profile {
   color: #7D777D; }
   @media only screen and (max-device-width: 458px), only screen and (min-device-width: 1024px) and (max-width: 965px) {
-    #login {
+    #profile {
       color: white; } }
 
 #actions {

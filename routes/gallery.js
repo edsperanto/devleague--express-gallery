@@ -5,7 +5,15 @@ const gen = require('../helper/gen');
 const db = require('../models');
 const { Photo } = db;
 
-router.get('/new', (req, res) => {
+function isAuthenticated(req, res, next) {
+	if(req.isAuthenticated()) {
+		next();
+	}else{
+		res.redirect('/login');
+	}
+}
+
+router.get('/new', isAuthenticated, (req, res) => {
 	gen.details("1", Photo)
 		.then(data => {
 			data.details.creating = true;
@@ -23,7 +31,7 @@ router.get('/:id', (req, res) => {
 		.then(data => res.render('detail', data));
 });
 
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', isAuthenticated, (req, res) => {
 	gen.details(req.params.id, Photo)
 		.then(data => {
 			data.details.editing = true;
@@ -32,7 +40,7 @@ router.get('/:id/edit', (req, res) => {
 		.then(data => res.render('detail', data));
 });
 
-router.post('/', (req, res) => {
+router.post('/', isAuthenticated, (req, res) => {
 	var {author, link, description} = req.body;
 	Photo.create({author, link, description})
 		.then(photo => Photo.findOne({where: {author, link, description}}))
@@ -46,7 +54,7 @@ router.post('/', (req, res) => {
 		});
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', isAuthenticated, (req, res) => {
 	var {author, link, description} = req.body;
 	Photo.update(
 		{author, link, description},
@@ -55,7 +63,7 @@ router.put('/:id', (req, res) => {
 		.then(_ => res.redirect(`/gallery/${req.params.id}`));
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isAuthenticated, (req, res) => {
 	Photo.destroy({where: {id: req.params.id}})
 		.then(id => {
 			res.json({success: true});
