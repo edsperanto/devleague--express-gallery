@@ -55,6 +55,11 @@ passport.deserializeUser(function(user, done) {
 	return done(null, user);
 });
 
+app.use((req, res, next) => {
+	gen.lastURI(req.path);
+	next();
+});
+
 app.use(express.static('./public'));
 app.use('/gallery', gallery);
 
@@ -67,7 +72,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/redirToLogin', (req, res) => {
-	gen.lastURI(req.body.redirTo);
 	res.redirect('/login');
 });
 

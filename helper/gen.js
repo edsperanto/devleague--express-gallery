@@ -57,7 +57,8 @@ const gen = (function() {
 		return currUser;
 	}
 	function lastURI(URI) {
-		pendingURI = URI;
+		let blackList = ['/login', '/success', '/redirTo', '/css/app.css', '/js/app.js'];
+		if(blackList.every(entry => URI !== entry)) pendingURI = URI;
 	}
 	function URI() {
 		return pendingURI;
