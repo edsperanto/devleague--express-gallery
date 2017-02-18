@@ -47,6 +47,10 @@ module.exports = function(table) {
 					{
 						username: "sumgai",
 						password: "sumpassword"
+					},
+					{
+						username: "Edward",
+						password: "thereisnogod"
 					}
 				]);
 			});
