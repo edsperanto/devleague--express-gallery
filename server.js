@@ -45,7 +45,6 @@ passport.use(new LocalStrategy(
   (username, password, done) => 
 		authenticate(username, password)
 			.then(user => done(null, user || false))
-  
 ));
 
 passport.serializeUser(function(user, done) {
@@ -67,6 +66,11 @@ app.get('/', (req, res) => {
 		});
 });
 
+app.post('/redirToLogin', (req, res) => {
+	gen.lastURI(req.body.redirTo);
+	res.redirect('/login');
+});
+
 app.get('/login', (req, res) => {
 	res.render('login', {loggedin: gen.user()});
 });
@@ -79,14 +83,14 @@ app.post('/login', passport.
 
 app.get('/success', isAuthenticated, (req, res) => {
 	gen.confUser();
-	res.redirect('/');
+	res.redirect(gen.URI());
 });
 
 function isAuthenticated(req, res, next) {
 	if(req.isAuthenticated()) {
 		next();
 	}else{
-		res.redirect('/login');
+		res.redirect('/redirToLogin');
 	}
 }
 

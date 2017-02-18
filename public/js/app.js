@@ -8,6 +8,7 @@
 		.map(btn => document.getElementById(btn));
 
 	// make cards link
+	const url = window.location.pathname;
 	const redirTo = link => window.location.href = link;
 	const repeat = (f, groups) => groups.forEach(group => f.apply(this, group));
 	const link = (group, link) => Array.prototype.forEach.call(group, ele => {
@@ -21,15 +22,24 @@
 	const edit = _ => redirTo(url+'/edit');
 	const discard = _ => redirTo(url.match(/\/gallery\/[0-9A-z]+/g)[0]);
 	const done = _ => form.submit();
-	const profile = _ => redirTo('/login');
 	const login = _ => form.submit();
 	const del = _ => {
 		form.action = form.action.split('PUT').join('DELETE');
 		form.submit();
 	}
+	const profile = _ => {
+		let redirForm = document.createElement('form');
+		let redirInput = document.createElement('input');
+		redirForm.action = `/redirToLogin?redirTo=${window.location.href}`;
+		redirForm.method = 'post';
+		redirInput.type = 'text';
+		redirInput.name = 'redirTo';
+		redirInput.value = url;
+		redirForm.appendChild(redirInput);
+		redirForm.submit();
+	}
 
 	// control menu display
-	const url = window.location.pathname;
 	const onClick = (btn, cb) => btn.addEventListener('click', cb);
 	const show = btns => btns.forEach(btn => btn.parentElement.style.display = 'initial');	
 	const [itemRE, itemEditRE] =

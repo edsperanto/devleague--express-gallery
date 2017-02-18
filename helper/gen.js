@@ -1,4 +1,5 @@
 const gen = (function() {
+	let pendingURI = '/';
 	let pendingUser = '';
 	let currUser = 'anonymous';
 	function listify(table) {
@@ -55,7 +56,13 @@ const gen = (function() {
 	function user() {
 		return currUser;
 	}
-	return { allListing, details, newUser, confUser, user };
+	function lastURI(URI) {
+		pendingURI = URI;
+	}
+	function URI() {
+		return pendingURI;
+	}
+	return { allListing, details, newUser, confUser, user, lastURI, URI };
 })();
 
 module.exports = gen;
