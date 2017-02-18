@@ -36,8 +36,10 @@ app.use(session({secret: CONFIG.SESSION_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-const authenticate = (username, password) => 
-	User.findOne({where: {username, password}});
+const authenticate = (username, password) => {
+	gen.newUser(username);
+	return User.findOne({where: {username, password}});
+}
 
 passport.use(new LocalStrategy(
   (username, password, done) => 
@@ -59,21 +61,25 @@ app.use('/gallery', gallery);
 
 app.get('/', (req, res) => {
 	gen.allListing(Photo)
-		.then(data => res.render('index', data));
+		.then(data => {
+			data.loggedin = gen.user();
+			res.render('index', data);
+		});
 });
 
 app.get('/login', (req, res) => {
-	res.render('login');
+	res.render('login', {loggedin: gen.user()});
 });
 
 app.post('/login', passport.
 	authenticate('local', {
-		successRedirect: '/',
+		successRedirect: '/success',
 		failureRedirect: '/login'
 	}));
 
-app.get('/secret', isAuthenticated, (req, res) => {
-	res.send('this is my first secret page');
+app.get('/success', isAuthenticated, (req, res) => {
+	gen.confUser();
+	res.redirect('/');
 });
 
 function isAuthenticated(req, res, next) {

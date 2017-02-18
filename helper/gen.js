@@ -1,4 +1,6 @@
 const gen = (function() {
+	let pendingUser = '';
+	let currUser = 'anonymous';
 	function listify(table) {
 		return table.findAll()
 			.then(table => {
@@ -44,7 +46,16 @@ const gen = (function() {
 				return {details, sidePane};
 			});
 	}
-	return { allListing, details };
+	function newUser(username) {
+		pendingUser = username;
+	}
+	function confUser() {
+		currUser = pendingUser;
+	}
+	function user() {
+		return currUser;
+	}
+	return { allListing, details, newUser, confUser, user };
 })();
 
 module.exports = gen;
