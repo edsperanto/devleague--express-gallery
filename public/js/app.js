@@ -3,8 +3,8 @@
 	// get elements
 	const [title, bigCards, smallCards] = ['title', 'big-card', 'small-card']
 		.map(card => document.getElementsByClassName(card));
-	const [newBtn, editBtn, discardBtn, doneBtn, profBtn, loginBtn, form] = 
-		['new', 'edit', 'discard', 'done', 'profile', 'login', 'form']
+	const [newBtn, editBtn, delBtn, discardBtn, doneBtn, profBtn, loginBtn, form] = 
+		['new', 'edit', 'delete', 'discard', 'done', 'profile', 'login', 'form']
 		.map(btn => document.getElementById(btn));
 
 	// make cards link
@@ -23,6 +23,10 @@
 	const done = _ => form.submit();
 	const profile = _ => redirTo('/login');
 	const login = _ => form.submit();
+	const del = _ => {
+		form.action = form.action.split('PUT').join('DELETE');
+		form.submit();
+	}
 
 	// control menu display
 	const url = window.location.pathname;
@@ -34,10 +38,10 @@
 		case url === '/login': show([loginBtn]); break;
 		case url === '/gallery/new': show([discardBtn, doneBtn]); break;
 		case itemRE.test(url): show([newBtn, editBtn]); break;
-		case itemEditRE.test(url): show([discardBtn, doneBtn]); break;
+		case itemEditRE.test(url): show([delBtn, discardBtn, doneBtn]); break;
 		default: show([newBtn]); break;
 	}
 	repeat(onClick, [[newBtn, create], [editBtn, edit], [discardBtn, discard], 
-		[doneBtn, done], [profBtn, profile], [loginBtn, login]]);
+		[doneBtn, done], [profBtn, profile], [loginBtn, login], [delBtn, del]]);
 
 })();

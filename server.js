@@ -15,7 +15,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const CONFIG = require('./config/config.json');
 
 const db = require('./models');
-const { Photo } = db;
+const { Photo, User } = db;
 
 const hbs = handlebars.create({
 	extname: '.hbs',
@@ -23,6 +23,7 @@ const hbs = handlebars.create({
 });
 
 initialize(Photo);
+initialize(User);
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
@@ -35,32 +36,14 @@ app.use(session({secret: CONFIG.SESSION_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-const authenticate = (username, password) => {
-  // get user data from the DB
-  const { USER, PASSWORD } = CONFIG;
-
-  // check if the user is authenticated or not
-  return ( username === USER && password === PASSWORD );
-};
+const authenticate = (username, password) => 
+	User.findOne({where: {username, password}});
 
 passport.use(new LocalStrategy(
-  function (username, password, done) {
-    console.log('username, password: ', username, password);
-    // check if the user is authenticated or not
-    if( authenticate(username, password) ) {
-
-      // User data from the DB
-      const user = {
-        name: 'Joe',
-        role: 'admin',
-        favColor: 'green',
-        isAdmin: true,
-      };
-
-      return done(null, user); // no error, and data = user
-    }
-    return done(null, false); // error and authenticted = false
-  }
+  (username, password, done) => 
+		authenticate(username, password)
+			.then(user => done(null, user || false))
+  
 ));
 
 passport.serializeUser(function(user, done) {

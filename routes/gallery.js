@@ -65,8 +65,8 @@ router.put('/:id', isAuthenticated, (req, res) => {
 
 router.delete('/:id', isAuthenticated, (req, res) => {
 	Photo.destroy({where: {id: req.params.id}})
-		.then(id => {
-			res.json({success: true});
+		.then(_ => {
+			res.redirect('/');
 		});
 })
 
