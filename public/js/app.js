@@ -23,20 +23,10 @@
 	const discard = _ => redirTo(url.match(/\/gallery\/[0-9A-z]+/g)[0]);
 	const done = _ => form.submit();
 	const login = _ => form.submit();
+	const profile = _ => redirTo('/login');
 	const del = _ => {
 		form.action = form.action.split('PUT').join('DELETE');
 		form.submit();
-	}
-	const profile = _ => {
-		let redirForm = document.createElement('form');
-		let redirInput = document.createElement('input');
-		redirForm.action = `/redirToLogin?redirTo=${window.location.href}`;
-		redirForm.method = 'post';
-		redirInput.type = 'text';
-		redirInput.name = 'redirTo';
-		redirInput.value = url;
-		redirForm.appendChild(redirInput);
-		redirForm.submit();
 	}
 
 	// control menu display

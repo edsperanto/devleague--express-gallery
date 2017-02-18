@@ -71,10 +71,6 @@ app.get('/', (req, res) => {
 		});
 });
 
-app.post('/redirToLogin', (req, res) => {
-	res.redirect('/login');
-});
-
 app.get('/login', (req, res) => {
 	res.render('login', {loggedin: gen.user()});
 });
@@ -94,7 +90,7 @@ function isAuthenticated(req, res, next) {
 	if(req.isAuthenticated()) {
 		next();
 	}else{
-		res.redirect('/redirToLogin');
+		res.redirect('/login');
 	}
 }
 

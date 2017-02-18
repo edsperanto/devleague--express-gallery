@@ -47,22 +47,17 @@ const gen = (function() {
 				return {details, sidePane};
 			});
 	}
-	function newUser(username) {
-		pendingUser = username;
-	}
-	function confUser() {
-		currUser = pendingUser;
-	}
-	function user() {
-		return currUser;
-	}
-	function lastURI(URI) {
+
+	// session management
+	const newUser = username => pendingUser = username;
+	const confUser = _ => currUser = pendingUser;
+	const user = _ => currUser;
+	const URI = _ => pendingURI;
+	const lastURI = URI => {
 		let blackList = ['/login', '/success', '/redirTo', '/css/app.css', '/js/app.js'];
 		if(blackList.every(entry => URI !== entry)) pendingURI = URI;
 	}
-	function URI() {
-		return pendingURI;
-	}
+
 	return { allListing, details, newUser, confUser, user, lastURI, URI };
 })();
 
