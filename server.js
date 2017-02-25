@@ -25,7 +25,7 @@ const hbs = handlebars.create({
 	defaultLayout: 'app'
 });
 
-initialize(Photo);
+// initialize(Photo);
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
