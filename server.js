@@ -10,9 +10,10 @@ const app = express();
 const gallery = require('./routes/gallery');
 
 const session = require('express-session');
-const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
 const bcrypt = require('bcrypt');
+const RedisStore = require('connect-redis')(session);
 const CONFIG = require('./config/config.json');
 
 const db = require('./models');
@@ -25,8 +26,6 @@ const hbs = handlebars.create({
 	defaultLayout: 'app'
 });
 
-// initialize(Photo);
-
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
@@ -34,16 +33,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
-app.use(session({secret: CONFIG.SESSION_SECRET}));
+app.use(session({
+	store: new RedisStore(),
+	secret: 'keyboard cat',
+	resave: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-
-/*
-const authenticate = (username, password) => {
-	gen.newUser(username);
-	return User.findOne({where: {username, password}});
-}
-*/
 
 passport.use(new LocalStrategy (
 	function(username, password, done) {
@@ -61,7 +57,7 @@ passport.use(new LocalStrategy (
 					}
 				});
 			}
-		});
+		}).catch(err => console.log('error: ', err));
 	}
 ));
 
