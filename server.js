@@ -26,7 +26,6 @@ const hbs = handlebars.create({
 });
 
 initialize(Photo);
-initialize(User);
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
@@ -39,21 +38,29 @@ app.use(session({secret: CONFIG.SESSION_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-function checkPassword() {
-	return bcrypt.compare(password, hash, function(err, res) {
-		return res;
-	});
-}
-
 const authenticate = (username, password) => {
 	gen.newUser(username);
 	return User.findOne({where: {username, password}});
 }
 
-passport.use(new LocalStrategy(
-  (username, password, done) => 
-		authenticate(username, password)
-			.then(user => done(null, user || false))
+passport.use(new LocalStrategy (
+	function(username, password, done) {
+		User.findOne({where: {username: username}}).then(user => {
+			if(user === null) {
+				console.log('user failed');
+				done(null, false, {message: 'bad username'});
+			}else{
+				bcrypt.compare(password, user.password).then(res => {
+					if(res) {
+						gen.newUser(username);
+						done(null, user);
+					} else {
+						done(null, false, {message: 'bad password'});
+					}
+				});
+			}
+		});
+	}
 ));
 
 passport.serializeUser(function(user, done) {
