@@ -54,7 +54,7 @@ const gen = (function() {
 	const user = _ => currUser;
 	const URI = _ => pendingURI;
 	const lastURI = URI => {
-		let blackList = ['/login', '/success', '/redirTo', '/css/app.css', '/js/app.js'];
+		let blackList = ['/login', '/success', '/redirTo', '/user/new', '/css/app.css', '/js/app.js'];
 		if(blackList.every(entry => URI !== entry)) pendingURI = URI;
 	}
 

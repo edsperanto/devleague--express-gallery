@@ -38,10 +38,12 @@ app.use(session({secret: CONFIG.SESSION_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+/*
 const authenticate = (username, password) => {
 	gen.newUser(username);
 	return User.findOne({where: {username, password}});
 }
+*/
 
 passport.use(new LocalStrategy (
 	function(username, password, done) {
@@ -63,13 +65,8 @@ passport.use(new LocalStrategy (
 	}
 ));
 
-passport.serializeUser(function(user, done) {
-	return done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-	return done(null, user);
-});
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
 
 app.use((req, res, next) => {
 	gen.lastURI(req.path);
@@ -85,6 +82,10 @@ app.get('/', (req, res) => {
 			data.loggedin = gen.user();
 			res.render('index', data);
 		});
+});
+
+app.get('/user/new', (req, res) => {
+	res.render('newUser', {loggedin: gen.user()});
 });
 
 app.post('/user/new', (req, res) => {

@@ -3,8 +3,8 @@
 	// get elements
 	const [title, bigCards, smallCards] = ['title', 'big-card', 'small-card']
 		.map(card => document.getElementsByClassName(card));
-	const [newBtn, editBtn, delBtn, discardBtn, doneBtn, profBtn, loginBtn, form] = 
-		['new', 'edit', 'delete', 'discard', 'done', 'profile', 'login', 'form']
+	const [newBtn, editBtn, delBtn, discardBtn, doneBtn, profBtn, nuBtn, loginBtn, form] = 
+		['new', 'edit', 'delete', 'discard', 'done', 'profile', 'newuser', 'login', 'form']
 		.map(btn => document.getElementById(btn));
 
 	// make cards link
@@ -23,6 +23,7 @@
 	const discard = _ => redirTo(url.match(/\/gallery\/[0-9A-z]+/g)[0]);
 	const done = _ => form.submit();
 	const login = _ => form.submit();
+	const newuser = _ => redirTo('/user/new');
 	const profile = _ => redirTo('/login');
 	const del = _ => {
 		form.action = form.action.split('PUT').join('DELETE');
@@ -35,13 +36,15 @@
 	const [itemRE, itemEditRE] =
 		[/^\/gallery\/[0-9]+$/g, /^\/gallery\/[0-9]+\/edit$/g];
 	switch(true) {
-		case url === '/login': show([loginBtn]); break;
+		case url === '/login': show([loginBtn, nuBtn]); break;
 		case url === '/gallery/new': show([discardBtn, doneBtn]); break;
+		case url === '/user/new': show([doneBtn]); break;
 		case itemRE.test(url): show([newBtn, editBtn]); break;
 		case itemEditRE.test(url): show([delBtn, discardBtn, doneBtn]); break;
 		default: show([newBtn]); break;
 	}
 	repeat(onClick, [[newBtn, create], [editBtn, edit], [discardBtn, discard], 
-		[doneBtn, done], [profBtn, profile], [loginBtn, login], [delBtn, del]]);
+		[doneBtn, done], [profBtn, profile], [loginBtn, login], [delBtn, del], 
+		[nuBtn, newuser]]);
 
 })();
