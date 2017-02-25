@@ -12,10 +12,13 @@ const gallery = require('./routes/gallery');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 const CONFIG = require('./config/config.json');
 
 const db = require('./models');
 const { Photo, User } = db;
+
+const saltRounds = 10;
 
 const hbs = handlebars.create({
 	extname: '.hbs',
@@ -35,6 +38,12 @@ app.use(methodOverride('_method'));
 app.use(session({secret: CONFIG.SESSION_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+function checkPassword() {
+	return bcrypt.compare(password, hash, function(err, res) {
+		return res;
+	});
+}
 
 const authenticate = (username, password) => {
 	gen.newUser(username);
@@ -69,6 +78,20 @@ app.get('/', (req, res) => {
 			data.loggedin = gen.user();
 			res.render('index', data);
 		});
+});
+
+app.post('/user/new', (req, res) => {
+	bcrypt.genSalt(saltRounds, function(err, salt) {
+		bcrypt.hash(req.body.password, salt, function(err, hash) {
+			console.log('hash: ', hash);
+			User.create({
+				username: req.body.username,
+				password: hash
+			}).then(_ => {
+				res.redirect('/login');
+			});
+		});
+	});
 });
 
 app.get('/login', (req, res) => {
