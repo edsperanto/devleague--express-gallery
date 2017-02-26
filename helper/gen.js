@@ -49,16 +49,13 @@ const gen = (function() {
 	}
 
 	// session management
-	const newUser = username => pendingUser = username;
-	const confUser = _ => currUser = pendingUser;
-	const user = _ => currUser;
 	const URI = _ => pendingURI;
 	const lastURI = URI => {
 		let blackList = ['/login', '/success', '/redirTo', '/logout', '/user/new', '/css/app.css', '/js/app.js'];
 		if(blackList.every(entry => URI !== entry)) pendingURI = URI;
 	}
 
-	return { allListing, details, newUser, confUser, user, lastURI, URI };
+	return { allListing, details, lastURI, URI };
 })();
 
 module.exports = gen;

@@ -82,7 +82,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/user/new', (req, res) => {
-	res.render('newUser', {loggedin: gen.user()});
+	res.render('newUser');
 });
 
 app.post('/user/new', (req, res) => {
