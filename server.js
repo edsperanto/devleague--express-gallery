@@ -13,6 +13,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const isAuthenticated = require('./helper/isAuthenticated');
+const showLogout = require('./helper/showLogout');
 const RedisStore = require('connect-redis')(session);
 const CONFIG = require('./config/config.json');
 
@@ -66,10 +67,7 @@ passport.use(new LocalStrategy (
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
-app.use((req, res, next) => {
-	gen.lastURI(req.path);
-	next();
-});
+app.use(showLogout(app));
 
 app.use(express.static('./public'));
 app.use('/gallery', gallery);
@@ -111,12 +109,10 @@ app.post('/login', passport.
 
 app.get('/logout', (req, res) => {
 	req.logout();
-	app.locals.authorized = false;
 	res.redirect(gen.URI())
 });
 
 app.get('/success', isAuthenticated, (req, res) => {
-	app.locals.authorized = true;
 	res.redirect(gen.URI());
 });
 
