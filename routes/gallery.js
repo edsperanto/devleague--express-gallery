@@ -21,7 +21,10 @@ router.get('/:id', (req, res) => {
 			data.details.viewing = true;
 			return data;
 		})
-		.then(data => res.render('detail', data));
+		.then(data => res.render('detail', data))
+		.catch(errorMsg => {
+			res.render('404', {errorMsg});
+		});
 });
 
 router.get('/:id/edit', isAuthenticated, (req, res) => {
@@ -30,7 +33,10 @@ router.get('/:id/edit', isAuthenticated, (req, res) => {
 			data.details.editing = true;
 			return data;
 		})
-		.then(data => res.render('detail', data));
+		.then(data => res.render('detail', data))
+		.catch(errorMsg => {
+			res.render('404', {errorMsg});
+		});
 });
 
 router.post('/', isAuthenticated, (req, res) => {
@@ -38,12 +44,8 @@ router.post('/', isAuthenticated, (req, res) => {
 	Photo.create({author, link, description})
 		.then(photo => Photo.findOne({where: {author, link, description}}))
 		.then(({id}) => res.redirect(`/gallery/${id}`))
-		.catch(err => {
-			let errMsg = {};
-			err.errors.forEach(({message, path}) => {
-				errMsg[path] = message;
-			});
-			res.json(errMsg);
+		.catch(errorMsg => {
+			res.render('404', {errorMsg});
 		});
 });
 

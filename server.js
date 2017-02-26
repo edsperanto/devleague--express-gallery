@@ -119,6 +119,11 @@ app.get('/success', isAuthenticated, (req, res) => {
 	res.redirect(gen.URI());
 });
 
+app.use((req, res, next) => {
+	res.status(404);
+	res.render('404');
+});
+
 if(!module.parent) {
 	app.listen(PORT, _ => {
 		console.log(`Server listening on ${PORT}`);
