@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 const methodOverride = require('method-override');
 const gen = require('./helper/gen');
-const initialize = require('./helper/initialize');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const gallery = require('./routes/gallery');
@@ -13,8 +12,12 @@ const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const isAuthenticated = require('./helper/isAuthenticated');
 const RedisStore = require('connect-redis')(session);
 const CONFIG = require('./config/config.json');
+
+const loadUser = require('./helper/loadUser');
+const cookieParser = require('cookie-parser');
 
 const db = require('./models');
 const { Photo, User } = db;
@@ -32,11 +35,14 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
+app.use(cookieParser());
+app.use(loadUser);
 
 app.use(session({
 	store: new RedisStore(),
 	secret: 'keyboard cat',
-	resave: false
+	resave: false,
+	saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,7 +56,6 @@ passport.use(new LocalStrategy (
 			}else{
 				bcrypt.compare(password, user.password).then(res => {
 					if(res) {
-						gen.newUser(username);
 						done(null, user);
 					} else {
 						done(null, false, {message: 'bad password'});
@@ -75,7 +80,6 @@ app.use('/gallery', gallery);
 app.get('/', (req, res) => {
 	gen.allListing(Photo)
 		.then(data => {
-			data.loggedin = gen.user();
 			res.render('index', data);
 		});
 });
@@ -99,7 +103,7 @@ app.post('/user/new', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-	res.render('login', {loggedin: gen.user()});
+	res.render('login');
 });
 
 app.post('/login', passport.
@@ -109,17 +113,8 @@ app.post('/login', passport.
 	}));
 
 app.get('/success', isAuthenticated, (req, res) => {
-	gen.confUser();
 	res.redirect(gen.URI());
 });
-
-function isAuthenticated(req, res, next) {
-	if(req.isAuthenticated()) {
-		next();
-	}else{
-		res.redirect('/login');
-	}
-}
 
 if(!module.parent) {
 	app.listen(PORT, _ => {

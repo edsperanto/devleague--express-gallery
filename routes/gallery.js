@@ -3,20 +3,12 @@ const sequelize = require('sequelize');
 const router = express.Router();
 const gen = require('../helper/gen');
 const db = require('../models');
+const isAuthenticated = require('../helper/isAuthenticated');
 const { Photo } = db;
-
-function isAuthenticated(req, res, next) {
-	if(req.isAuthenticated()) {
-		next();
-	}else{
-		res.redirect('/login');
-	}
-}
 
 router.get('/new', isAuthenticated, (req, res) => {
 	gen.details("1", Photo)
 		.then(data => {
-			data.loggedin = gen.user();
 			data.details.creating = true;
 			return data;
 		})
@@ -26,7 +18,6 @@ router.get('/new', isAuthenticated, (req, res) => {
 router.get('/:id', (req, res) => {
 	gen.details(req.params.id, Photo)
 		.then(data => {
-			data.loggedin = gen.user();
 			data.details.viewing = true;
 			return data;
 		})
@@ -36,7 +27,6 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', isAuthenticated, (req, res) => {
 	gen.details(req.params.id, Photo)
 		.then(data => {
-			data.loggedin = gen.user();
 			data.details.editing = true;
 			return data;
 		})
