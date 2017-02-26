@@ -3,9 +3,10 @@
 	// get elements
 	const [title, bigCards, smallCards] = ['title', 'big-card', 'small-card']
 		.map(card => document.getElementsByClassName(card));
-	const [newBtn, editBtn, delBtn, discardBtn, doneBtn, profBtn, nuBtn, loginBtn, form] = 
-		['new', 'edit', 'delete', 'discard', 'done', 'profile', 'newuser', 'login', 'form']
+	const [newBtn, editBtn, delBtn, discardBtn, doneBtn, profBtn, nuBtn, loginBtn] = 
+		['new', 'edit', 'delete', 'discard', 'done', 'profile', 'newuser', 'login']
 		.map(btn => document.getElementById(btn));
+	const form = document.getElementsByTagName('form')[0];
 
 	// make cards link
 	const url = window.location.pathname;
