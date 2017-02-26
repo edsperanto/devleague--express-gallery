@@ -55,11 +55,8 @@ passport.use(new LocalStrategy (
 				done(null, false, {message: 'bad username'});
 			}else{
 				bcrypt.compare(password, user.password).then(res => {
-					if(res) {
-						done(null, user);
-					} else {
-						done(null, false, {message: 'bad password'});
-					}
+					if(res) done(null, user);
+					else done(null, false, {message: 'bad password'});
 				});
 			}
 		}).catch(err => console.log('error: ', err));
@@ -112,7 +109,14 @@ app.post('/login', passport.
 		failureRedirect: '/login'
 	}));
 
+app.get('/logout', (req, res) => {
+	req.logout();
+	app.locals.authorized = false;
+	res.redirect(gen.URI())
+});
+
 app.get('/success', isAuthenticated, (req, res) => {
+	app.locals.authorized = true;
 	res.redirect(gen.URI());
 });
 

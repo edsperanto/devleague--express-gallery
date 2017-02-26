@@ -23,6 +23,7 @@
 	const discard = _ => redirTo(url.match(/\/gallery\/[0-9A-z]+/g)[0]);
 	const done = _ => form.submit();
 	const login = _ => form.submit();
+	const logout = _ => redirTo('/logout');
 	const newuser = _ => redirTo('/user/new');
 	const profile = _ => redirTo('/login');
 	const del = _ => {

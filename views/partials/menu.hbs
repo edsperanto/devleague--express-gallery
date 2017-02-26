@@ -1,7 +1,8 @@
 <div id="menu">
 	<div id="welcome">
-		<span>welcome back,&nbsp;</span>
+		<span>Hi,&nbsp;</span>
 		<a id="profile">{{loggedin}}</a>
+		{{#if authorized}}<a href="/logout">&nbsp;(logout)</a>{{/if}}
 	</div>
 	<div id="actions">
 		<div class="sep">・</div>
