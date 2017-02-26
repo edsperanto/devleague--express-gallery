@@ -1,4 +1,4 @@
-#details-author-link {
+.details-author-link {
 	width: 100%;
 	overflow: hidden;
 	white-space: nowrap;
@@ -7,16 +7,16 @@
 	margin-top: 1rem;
 }
 
-#details-img {
+.details-img {
 	width: 100%;
 }
 
-#details-desc {
+.details-desc {
 	color: $header-title-color;
 	margin-top: 1rem;
 }
 
-#form {
+form {
 	color: $header-title-color;
 	font-size: 1rem;
 	width: 100%;
@@ -66,6 +66,6 @@ input, textarea {
 	color: $header-title-color;
 }
 
-#desc {
+.desc {
 	height: 20rem;
 }

@@ -1,43 +1,43 @@
 {{#if viewing}}
-<img src="{{link}}" alt="{{description}}" id="details-img">
-<p id="details-author-link"><b>{{author}} - <a href="{{link}}">{{link}}</a></b></p>
-<p id="details-desc">{{description}}</p>
+<img src="{{link}}" alt="{{description}}" class="details-img">
+<p class="details-author-link"><b>{{author}} - <a href="{{link}}">{{link}}</a></b></p>
+<p class="details-desc">{{description}}</p>
 {{/if}}
 
 {{#if editing}}
-<form id="form" action="/gallery/{{id}}?_method=PUT" method="POST">
+<form action="/gallery/{{id}}?_method=PUT" method="POST">
 	<table>
 		<input type="hidden" name="id" value="{{id}}">
 		<tr>
 			<td class="label">Author</td>
-			<td><input id="author" type="text" name="author" placeholder="{{author}}"></td>
+			<td><input type="text" name="author" placeholder="{{author}}"></td>
 		</tr>
 		<tr>
 			<td class="label">Link</td>
-			<td><input id="link" type="text" name="link" placeholder="{{link}}"></td>
+			<td><input type="text" name="link" placeholder="{{link}}"></td>
 		</tr>
 		<tr>
 			<td class="label">Description</td>
-			<td><textarea id="desc" name="description" placeholder="{{description}}"></textarea></td>
+			<td><textarea class="desc" name="description" placeholder="{{description}}"></textarea></td>
 		</tr>
 	</table>
 </form>
 {{/if}}
 
 {{#if creating}}
-<form id="form" action="/gallery" method="POST">
+<form action="/gallery" method="POST">
 	<table>
 		<tr>
 			<td class="label">Author</td>
-			<td><input id="author" type="text" name="author"></td>
+			<td><input type="text" name="author"></td>
 		</tr>
 		<tr>
 			<td class="label">Link</td>
-			<td><input id="link" type="text" name="link"></td>
+			<td><input type="text" name="link"></td>
 		</tr>
 		<tr>
 			<td class="label">Description</td>
-			<td><textarea id="desc" type="text" name="description"></textarea></td>
+			<td><textarea class="desc" type="text" name="description"></textarea></td>
 		</tr>
 	</table>
 </form>
