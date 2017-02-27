@@ -71,10 +71,8 @@ passport.deserializeUser(({id}, done) => {
 
 app.use(loadUser);
 app.use(showLogout(app));
-app.use(isAuthenticated);
 
 app.use(express.static('./public'));
-app.use('/gallery', gallery);
 
 app.get('/', (req, res) => {
 	gen.allListing(Photo)
@@ -85,20 +83,6 @@ app.get('/', (req, res) => {
 
 app.get('/user/new', (req, res) => {
 	res.render('newUser');
-});
-
-app.post('/user/new', (req, res) => {
-	bcrypt.genSalt(saltRounds, function(err, salt) {
-		bcrypt.hash(req.body.password, salt, function(err, hash) {
-			console.log('hash: ', hash);
-			User.create({
-				username: req.body.username,
-				password: hash
-			}).then(_ => {
-				res.redirect('/login');
-			});
-		});
-	});
 });
 
 app.get('/login', (req, res) => {
@@ -115,10 +99,28 @@ app.get('/logout', (req, res) => {
 	req.logout();
 	res.redirect(gen.URI())
 });
-
-app.get('/success', isAuthenticated, (req, res) => {
+ 
+app.get('/success', (req, res) => {
 	res.redirect(gen.URI());
 });
+
+app.use(isAuthenticated);
+
+app.post('/user/new', (req, res) => {
+	bcrypt.genSalt(saltRounds, function(err, salt) {
+		bcrypt.hash(req.body.password, salt, function(err, hash) {
+			console.log('hash: ', hash);
+			User.create({
+				username: req.body.username,
+				password: hash
+			}).then(_ => {
+				res.redirect('/login');
+			});
+		});
+	});
+});
+
+app.use('/gallery', gallery);
 
 app.use((req, res, next) => {
 	res.status(404);
