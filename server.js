@@ -37,7 +37,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-app.use(loadUser);
 
 app.use(session({
 	store: new RedisStore(),
@@ -70,7 +69,9 @@ passport.deserializeUser(({id}, done) => {
 		.then(user => done(null, user));
 });
 
+app.use(loadUser);
 app.use(showLogout(app));
+app.use(isAuthenticated);
 
 app.use(express.static('./public'));
 app.use('/gallery', gallery);

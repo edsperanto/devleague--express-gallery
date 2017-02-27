@@ -6,7 +6,7 @@ const db = require('../models');
 const isAuthenticated = require('../helper/isAuthenticated');
 const { Photo } = db;
 
-router.get('/new', isAuthenticated, (req, res) => {
+router.get('/new', (req, res) => {
 	gen.details("1", Photo)
 		.then(data => {
 			data.details.creating = true;
@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
 		});
 });
 
-router.get('/:id/edit', isAuthenticated, (req, res) => {
+router.get('/:id/edit', (req, res) => {
 	gen.details(req.params.id, Photo)
 		.then(data => {
 			data.details.editing = true;
@@ -39,7 +39,7 @@ router.get('/:id/edit', isAuthenticated, (req, res) => {
 		});
 });
 
-router.post('/', isAuthenticated, (req, res) => {
+router.post('/', (req, res) => {
 	var {author, link, description} = req.body;
 	Photo.create({author, link, description})
 		.then(photo => Photo.findOne({where: {author, link, description}}))
@@ -49,7 +49,7 @@ router.post('/', isAuthenticated, (req, res) => {
 		});
 });
 
-router.put('/:id', isAuthenticated, (req, res) => {
+router.put('/:id', (req, res) => {
 	var {author, link, description} = req.body;
 	Photo.update(
 		{author, link, description},
@@ -58,7 +58,7 @@ router.put('/:id', isAuthenticated, (req, res) => {
 		.then(_ => res.redirect(`/gallery/${req.params.id}`));
 });
 
-router.delete('/:id', isAuthenticated, (req, res) => {
+router.delete('/:id', (req, res) => {
 	Photo.destroy({where: {id: req.params.id}})
 		.then(_ => {
 			res.redirect('/');
