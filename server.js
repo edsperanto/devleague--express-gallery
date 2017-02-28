@@ -104,9 +104,8 @@ app.get('/success', (req, res) => {
 	res.redirect(gen.URI());
 });
 
-app.use(isAuthenticated);
-
 app.post('/user/new', (req, res) => {
+	console.log('gen new');
 	bcrypt.genSalt(saltRounds, function(err, salt) {
 		bcrypt.hash(req.body.password, salt, function(err, hash) {
 			console.log('hash: ', hash);
@@ -119,6 +118,8 @@ app.post('/user/new', (req, res) => {
 		});
 	});
 });
+
+app.use(isAuthenticated);
 
 app.use('/gallery', gallery);
 

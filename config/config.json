@@ -1,22 +1,22 @@
 {
   "development": {
-    "username": "Edward",
-    "password": null,
+    "username": "edward",
+    "password": "edward",
     "database": "architekt",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
+    "username": "edward",
+    "password": "edward",
+    "database": "architekt",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
+    "username": "edward",
+    "password": "edward",
+    "database": "architekt",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
