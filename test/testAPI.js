@@ -6,6 +6,7 @@ const assert = chai.assert;
 const server = require('../server');
 const supertest = require('supertest');
 const agent = supertest.agent(server);
+const PASS = process.env.PASS;
 
 describe('Sanity check', () => {
 	it('passes test', () => {
@@ -18,5 +19,32 @@ describe('Sanity check', () => {
 	});
 });
 
-describe('Login', () => {
+describe('Page', () => {
+	describe('homepage', () => {
+		it('should load', () => {
+			agent.get('/')
+				.expect('Content-Type', /html/)
+				.expect(200)
+				.end((err, res) => {
+					if(err) throw err;
+					done();
+				});
+		});
+	});
 });
+
+/*
+describe('Login', () => {
+	describe('with incorrect username/password', () => {
+		it('should redirect to /login', done => {
+			agent.post('/login')
+				.set('username', 'fakeusername')
+				.set('password', 'fakepassword')
+				.end((err, res) => {
+					if(err) throw err;
+					done();
+				})
+		})
+	})
+});
+*/
