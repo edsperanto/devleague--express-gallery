@@ -1,43 +1,48 @@
+// server
 const express = require('express');
-const sequelize = require('sequelize');
-const bodyParser = require('body-parser');
-const handlebars = require('express-handlebars');
-const methodOverride = require('method-override');
-const gen = require('./helper/gen');
-const PORT = process.env.PORT || 3000;
 const app = express();
-const gallery = require('./routes/gallery');
+const PORT = process.env.PORT || 3000;
 
-const session = require('express-session');
-const LocalStrategy = require('passport-local').Strategy;
-const passport = require('passport');
-const bcrypt = require('bcrypt');
-const isAuthenticated = require('./helper/isAuthenticated');
-const showLogout = require('./helper/showLogout');
-const RedisStore = require('connect-redis')(session);
-const CONFIG = require('./config/config.json');
-
-const loadUser = require('./helper/loadUser');
-const cookieParser = require('cookie-parser');
-
-const db = require('./models');
-const { Photo, User } = db;
-
-const saltRounds = 10;
-
+// handlebars
+const handlebars = require('express-handlebars');
 const hbs = handlebars.create({
 	extname: '.hbs',
 	defaultLayout: 'app'
 });
-
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
+// request handlers
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 
+// session & passport
+const session = require('express-session');
+const LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+// const CONFIG = require('./config/config.json');
+
+// database
+const RedisStore = require('connect-redis')(session);
+const sequelize = require('sequelize');
+const db = require('./models');
+const { Photo, User } = db;
+
+// custom helpers
+const gen = require('./helper/gen');
+const gallery = require('./routes/gallery');
+const isAuthenticated = require('./helper/isAuthenticated');
+const showLogout = require('./helper/showLogout');
+const loadUser = require('./helper/loadUser');
+
+// session settings
 app.use(session({
 	store: new RedisStore(),
 	secret: 'keyboard cat',
@@ -47,6 +52,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// passport settings
 passport.use(new LocalStrategy (
 	function(username, password, done) {
 		User.findOne({where: {username: username}}).then(user => {
@@ -62,13 +68,13 @@ passport.use(new LocalStrategy (
 		}).catch(err => console.log('error: ', err));
 	}
 ));
-
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser(({id}, done) => {
 	User.findOne({where: {id}})
 		.then(user => done(null, user));
 });
 
+// custom middleware
 app.use(loadUser);
 app.use(showLogout(app));
 
