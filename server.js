@@ -27,7 +27,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-// const CONFIG = require('./config/config.json');
 
 // database
 const RedisStore = require('connect-redis')(session);
