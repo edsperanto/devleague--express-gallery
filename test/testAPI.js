@@ -120,4 +120,24 @@ describe('APIs', () => {
 		});
 	});
 
+	describe('GET logout page', () => {
+		let redirect;
+		it('should logout', done => {
+			agent.get('/logout')
+				.expect(302)
+				.then(res => {
+					redirect = res.res.headers.location;
+					return agent.get(redirect)
+						.expect('Content-Type', /html/)
+						.expect(200)
+				})
+				.then(res => {
+					let $ = cheerio.load(res.text);
+					let profile = $('#profile').text();
+					profile.should.deep.equal('anonymous');
+					done();
+				});
+		});
+	});
+
 });
