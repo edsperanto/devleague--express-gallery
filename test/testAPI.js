@@ -75,6 +75,7 @@ describe('Pages', () => {
 describe('APIs', () => {
 
 	describe('POST login page', () => {
+		let redirect;
 		it('should redirect to /login if failed', done => {
 			agent.post('/login')
 				.set('Content-Type', 'application/json')
@@ -82,7 +83,8 @@ describe('APIs', () => {
 				.expect(302)
 				.end((err, res) => {
 					if(err) done(err);
-					res.res.headers.location.should.equal('/login');
+					redirect = res.res.headers.location;
+					redirect.should.equal('/login');
 					res.redirect.should.be.true;
 					done();
 				});
@@ -94,16 +96,22 @@ describe('APIs', () => {
 				.expect(302)
 				.end((err, res) => {
 					if(err) done(err);
-					res.res.headers.location.should.equal('/success');
+					redirect = res.res.headers.location;
+					redirect.should.deep.equal('/success');
 					res.redirect.should.be.true;
 					done();
 				});
 		});
 		it('should log in as Edward', done => {
-			agent.get('/')
-				.expect('Content-Type', /html/)
-				.expect(200)
-				.end((err, res) => {
+			agent.get(redirect)
+				.expect(302)
+				.then(res => {
+					redirect = res.res.headers.location;
+					return agent.get(redirect)
+						.expect('Content-Type', /html/)
+						.expect(200)
+				})
+				.then(res => {
 					let $ = cheerio.load(res.text);
 					let profile = $('#profile').text();
 					profile.should.deep.equal('Edward');
