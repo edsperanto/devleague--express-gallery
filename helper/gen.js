@@ -51,7 +51,7 @@ const gen = (function() {
 	// session management
 	const URI = _ => pendingURI;
 	const lastURI = URI => {
-		let blackList = ['/login', '/success', '/redirTo', '/logout', '/user/new', '/css/app.css', '/js/app.js'];
+		let blackList = ['/login', '/success', '/redirTo', '/logout', '/user/new', '/css/app.css', '/js/app.js', '/404'];
 		if(blackList.every(entry => URI !== entry)) pendingURI = URI;
 	}
 

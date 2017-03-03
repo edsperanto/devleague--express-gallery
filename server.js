@@ -124,13 +124,15 @@ app.post('/user/new', (req, res) => {
 	});
 });
 
-app.use(isAuthenticated);
-
-app.use('/gallery', gallery);
-
-app.use((req, res, next) => {
+app.get('/404', (req, res) => {
 	res.status(404);
 	res.render('404');
+});
+
+app.use('/gallery', isAuthenticated, gallery);
+
+app.use((req, res) => {
+	res.redirect('/404');
 });
 
 if(!module.parent) {

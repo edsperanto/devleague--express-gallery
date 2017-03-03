@@ -109,7 +109,7 @@ describe('APIs', () => {
 					redirect = res.res.headers.location;
 					return agent.get(redirect)
 						.expect('Content-Type', /html/)
-						.expect(200)
+						.expect(200);
 				})
 				.then(res => {
 					let $ = cheerio.load(res.text);
@@ -118,6 +118,7 @@ describe('APIs', () => {
 					done();
 				});
 		});
+					console.log(redirect);
 	});
 
 	describe('GET logout page', () => {
@@ -129,7 +130,7 @@ describe('APIs', () => {
 					redirect = res.res.headers.location;
 					return agent.get(redirect)
 						.expect('Content-Type', /html/)
-						.expect(200)
+						.expect(200);
 				})
 				.then(res => {
 					let $ = cheerio.load(res.text);
@@ -141,3 +142,51 @@ describe('APIs', () => {
 	});
 
 });
+
+describe('Non-existent pages', () => {
+
+	let redirect;
+
+	describe('GET nonexistent page', () => {
+		it('should redirect to 404', done => {
+			agent.get('/pagethatdoesnotexist')
+				.expect(302)
+				.then(res => {
+					redirect = res.res.headers.location;
+					agent.get(redirect)
+						.expect('Content-Type', /html/)
+						.expect(404);
+					done();
+				});
+		});
+	});
+
+	describe('PUT nonexistent page', () => {
+		it('should redirect to 404', done => {
+			agent.put('/pagethatdoesnotexist')
+				.expect(302)
+				.then(res => {
+					redirect = res.res.headers.location;
+					agent.get(redirect)
+						.expect('Content-Type', /html/)
+						.expect(404)
+					done();
+				});
+		});
+	});
+
+	describe('DELETE nonexistent page', () => {
+		it('should redirect to 404', done => {
+			agent.delete('/pagethatdoesnotexist')
+				.expect(302)
+				.then(res => {
+					redirect = res.res.headers.location;
+					agent.get(redirect)
+						.expect('Content-Type', /html/)
+						.expect(404);
+					done();
+				});
+		});
+	});
+
+})
