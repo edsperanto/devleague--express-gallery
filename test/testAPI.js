@@ -19,10 +19,23 @@ describe('Sanity check', () => {
 	});
 });
 
-describe('Page', () => {
+describe('Pages', () => {
+
 	describe('homepage', () => {
 		it('should load', () => {
 			agent.get('/')
+				.expect('Content-Type', /html/)
+				.expect(200)
+				.end((err, res) => {
+					if(err) throw err;
+					done();
+				});
+		});
+	});
+
+	describe('login page', () => {
+		it('should load', () => {
+			agent.get('/login')
 				.expect('Content-Type', /html/)
 				.expect(200)
 				.end((err, res) => {
@@ -38,13 +51,15 @@ describe('Login', () => {
 	describe('with incorrect username/password', () => {
 		it('should redirect to /login', done => {
 			agent.post('/login')
-				.set('username', 'fakeusername')
-				.set('password', 'fakepassword')
+				.type('json')
+				.send('{"username": "fakeuser", "password": "pass"}')
+				.expect('Content-Type', /html/)
+				.expect(200)
 				.end((err, res) => {
 					if(err) throw err;
 					done();
-				})
-		})
-	})
+				});
+		});
+	});
 });
 */
