@@ -11,12 +11,24 @@ const PASS = process.env.PASS;
 describe('Pages', () => {
 
 	describe('GET homepage', () => {
+		let cookie;
 		it('should load', done => {
 			agent.get('/')
 				.expect('Content-Type', /html/)
 				.expect(200)
 				.end((err, res) => {
 					if(err) done(err);
+					cookie = res.res.headers['set-cookie'];
+					done();
+				});
+		});
+		it('should set cookie', done => {
+			agent.get('/')
+				.expect('Content-Type', /html/)
+				.expect(200)
+				.end((err, res) => {
+					if(err) done(err);
+					cookie.should.be.an('array');
 					done();
 				});
 		});
