@@ -24,5 +24,6 @@ module.exports = (req, res, next) => {
 		});
 	} else {
 		res.locals.loggedin = 'anonymous';
+		next();
 	}
 }
