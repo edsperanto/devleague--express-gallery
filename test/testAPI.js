@@ -9,7 +9,7 @@ const supertest = require('supertest');
 const agent = supertest.agent(server);
 const PASS = process.env.PASS;
 
-describe('Pages', () => {
+describe('Main pages', () => {
 
 	describe('GET homepage', () => {
 		let cookie;
@@ -72,7 +72,7 @@ describe('Pages', () => {
 
 });
 
-describe('APIs', () => {
+describe('User management', () => {
 
 	describe('POST login page', () => {
 		let redirect;
@@ -189,4 +189,57 @@ describe('Non-existent pages', () => {
 		});
 	});
 
-})
+});
+
+describe('Restricted page redirect after login for', () => {
+	let redirect;
+	it('GET /gallery/new', done => {
+		agent.get('/gallery/new')
+			.expect(302)
+			.then(res => {
+				redirect = res.res.headers.location;
+				return agent.post(redirect)
+					.set('Content-Type', 'application/json')
+					.send({"username": "Edward", "password": PASS});
+			})
+			.then(res => res.res.headers.location)
+			.then(redirect => agent.get(redirect))
+			.then(res => {
+				redirect = res.res.headers.location;
+				redirect.should.deep.equal('/gallery/new');
+				return agent.get(redirect);
+			})
+			.then(res => {
+				let $ = cheerio.load(res.text);
+				let profile = $('#profile').text();
+				return agent.get('/logout');
+			})
+			.then(res => res.res.headers.location)
+			.then(redirect => agent.get(redirect))
+			.then(res => res.res.headers.location)
+			.then(redirect => agent.get(redirect))
+			.then(res => {
+				let $ = cheerio.load(res.text);
+				let profile = $('#profile').text();
+				profile.should.deep.equal('anonymous');
+				done();
+			});
+	});
+});
+
+/*
+describe('Gallery pages', () => {
+
+	describe('GET new photo page', () => {
+		it('should load', done => {
+			agent.get('/gallery/new')
+				.expect(302)
+				.end((err, res) => {
+					if(err) console.log(err);
+					done();
+				});
+		});
+	});
+
+});
+*/
