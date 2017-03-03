@@ -16,7 +16,7 @@ describe('Pages', () => {
 				.expect('Content-Type', /html/)
 				.expect(200)
 				.end((err, res) => {
-					if(err) throw done(err);
+					if(err) done(err);
 					done();
 				});
 		});
@@ -28,20 +28,34 @@ describe('Pages', () => {
 				.expect('Content-Type', /html/)
 				.expect(200)
 				.end((err, res) => {
-					if(err) throw done(err);
+					if(err) done(err);
 					done();
 				});
 		});
 	});
 
 	describe('POST login page', () => {
-		it('should re-prompt login if failed', done => {
+		it('should redirect to /login if failed', done => {
 			agent.post('/login')
 				.set('Content-Type', 'application/json')
 				.send({"username": "fakeuser", "password": "fakepass"})
 				.expect(302)
 				.end((err, res) => {
-					if(err) throw done(err);
+					if(err) done(err);
+					res.res.headers.location.should.equal('/login');
+					res.redirect.should.be.true;
+					done();
+				});
+		});
+		it('should redirect to /success if failed', done => {
+			agent.post('/login')
+				.set('Content-Type', 'application/json')
+				.send({"username": "Edward", "password": PASS})
+				.expect(302)
+				.end((err, res) => {
+					if(err) done(err);
+					console.log(res.text);
+					res.res.headers.location.should.equal('/success');
 					res.redirect.should.be.true;
 					done();
 				});
