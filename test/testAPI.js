@@ -1,6 +1,7 @@
 const chai = require('chai');
 const mocha = require('mocha');
 const express = require('express');
+const cheerio = require('cheerio');
 const should = chai.should();
 const server = require('../server');
 const app = express();
@@ -29,6 +30,18 @@ describe('Pages', () => {
 				.end((err, res) => {
 					if(err) done(err);
 					cookie.should.be.an('array');
+					done();
+				});
+		});
+		it('should log in as anonymous', done => {
+			agent.get('/')
+				.expect('Content-Type', /html/)
+				.expect(200)
+				.end((err, res) => {
+					if(err) done(err);
+					let $ = cheerio.load(res.text);
+					let profile = $('#profile').text();
+					profile.should.deep.equal('anonymous');
 					done();
 				});
 		});
@@ -74,7 +87,7 @@ describe('APIs', () => {
 					done();
 				});
 		});
-		it('should redirect to /success if failed', done => {
+		it('should redirect to /success if succeeded', done => {
 			agent.post('/login')
 				.set('Content-Type', 'application/json')
 				.send({"username": "Edward", "password": PASS})
@@ -83,6 +96,17 @@ describe('APIs', () => {
 					if(err) done(err);
 					res.res.headers.location.should.equal('/success');
 					res.redirect.should.be.true;
+					done();
+				});
+		});
+		it('should log in as Edward', done => {
+			agent.get('/')
+				.expect('Content-Type', /html/)
+				.expect(200)
+				.end((err, res) => {
+					let $ = cheerio.load(res.text);
+					let profile = $('#profile').text();
+					profile.should.deep.equal('Edward');
 					done();
 				});
 		});
