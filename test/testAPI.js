@@ -34,4 +34,18 @@ describe('Pages', () => {
 		});
 	});
 
+	describe('POST login page', () => {
+		it('should re-prompt login if failed', done => {
+			agent.post('/login')
+				.set('Content-Type', 'application/json')
+				.send({"username": "fakeuser", "password": "fakepass"})
+				.expect(302)
+				.end((err, res) => {
+					if(err) throw done(err);
+					res.redirect.should.be.true;
+					done();
+				});
+		});
+	});
+
 });
