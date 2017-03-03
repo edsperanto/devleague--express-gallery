@@ -220,6 +220,7 @@ describe('Restricted page redirect after login for', () => {
 				done();
 			});
 	});
+
 	it('GET /gallery/:id/edit', done => {
 		agent.get('/gallery/1/edit')
 			.then(res => {
@@ -241,21 +242,17 @@ describe('Restricted page redirect after login for', () => {
 				done();
 			});
 	});
+
 });
 
-/*
 describe('Gallery pages', () => {
 
 	describe('GET new photo page', () => {
 		it('should load', done => {
 			agent.get('/gallery/new')
-				.expect(302)
-				.end((err, res) => {
-					if(err) console.log(err);
-					done();
-				});
+				.expect(200)
+				.end(res => done());
 		});
 	});
 
 });
-*/
