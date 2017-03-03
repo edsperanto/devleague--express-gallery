@@ -46,6 +46,21 @@ describe('Pages', () => {
 		});
 	});
 
+	describe('GET new user page', () => {
+		it('should load', done => {
+			agent.get('/user/new')
+				.expect(200)
+				.end((err, res) => {
+					if(err) done(err);
+					done();
+				});
+		});
+	});
+
+});
+
+describe('APIs', () => {
+
 	describe('POST login page', () => {
 		it('should redirect to /login if failed', done => {
 			agent.post('/login')
@@ -66,7 +81,6 @@ describe('Pages', () => {
 				.expect(302)
 				.end((err, res) => {
 					if(err) done(err);
-					console.log(res.text);
 					res.res.headers.location.should.equal('/success');
 					res.redirect.should.be.true;
 					done();

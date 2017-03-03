@@ -56,7 +56,7 @@ passport.use(new LocalStrategy (
 	function(username, password, done) {
 		User.findOne({where: {username: username}}).then(user => {
 			if(user === null) {
-				console.log('user failed');
+				// console.log('user failed');
 				done(null, false, {message: 'bad username'});
 			}else{
 				bcrypt.compare(password, user.password).then(res => {
