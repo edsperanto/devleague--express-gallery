@@ -192,10 +192,15 @@ describe('Non-existent pages', () => {
 });
 
 describe('Restricted page redirect after login for', () => {
+
 	let redirect;
+
+	beforeEach(done => {
+		agent.get('/logout').then(res => done());
+	});
+	
 	it('GET /gallery/new', done => {
 		agent.get('/gallery/new')
-			.expect(302)
 			.then(res => {
 				redirect = res.res.headers.location;
 				return agent.post(redirect)
@@ -212,22 +217,11 @@ describe('Restricted page redirect after login for', () => {
 			.then(res => {
 				let $ = cheerio.load(res.text);
 				let profile = $('#profile').text();
-				return agent.get('/logout');
-			})
-			.then(res => res.res.headers.location)
-			.then(redirect => agent.get(redirect))
-			.then(res => res.res.headers.location)
-			.then(redirect => agent.get(redirect))
-			.then(res => {
-				let $ = cheerio.load(res.text);
-				let profile = $('#profile').text();
-				profile.should.deep.equal('anonymous');
 				done();
 			});
 	});
 	it('GET /gallery/:id/edit', done => {
 		agent.get('/gallery/1/edit')
-			.expect(302)
 			.then(res => {
 				redirect = res.res.headers.location;
 				return agent.post(redirect)
@@ -244,16 +238,6 @@ describe('Restricted page redirect after login for', () => {
 			.then(res => {
 				let $ = cheerio.load(res.text);
 				let profile = $('#profile').text();
-				return agent.get('/logout');
-			})
-			.then(res => res.res.headers.location)
-			.then(redirect => agent.get(redirect))
-			.then(res => res.res.headers.location)
-			.then(redirect => agent.get(redirect))
-			.then(res => {
-				let $ = cheerio.load(res.text);
-				let profile = $('#profile').text();
-				profile.should.deep.equal('anonymous');
 				done();
 			});
 	});
