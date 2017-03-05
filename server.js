@@ -21,6 +21,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 
+// gulp
+const Promise = require('bluebird');
+const exec = Promise.promisifyAll(require('child_process')).execAsync;
+exec('sh ./watch.sh');
+
 // session & passport
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
