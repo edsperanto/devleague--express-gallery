@@ -45,6 +45,7 @@ const gallery = require('./routes/gallery');
 const isAuthenticated = require('./helper/isAuthenticated');
 const showLogout = require('./helper/showLogout');
 const loadUser = require('./helper/loadUser');
+const cache = require('./helper/cache');
 
 // session settings
 app.use(session({
@@ -81,6 +82,7 @@ passport.deserializeUser(({id}, done) => {
 // custom middleware
 app.use(loadUser);
 app.use(showLogout(app));
+app.use(cache.init());
 
 app.use(express.static('./public'));
 
