@@ -1,4 +1,5 @@
 const gen = (function() {
+	const config = require('../config/config');
 	let pendingURI = '/';
 	let pendingUser = '';
 	let currUser = 'anonymous';
@@ -12,6 +13,7 @@ const gen = (function() {
 			});
 	}
 	function listRnd(list) {
+		if(!config.randomize) return list.splice(0, 1)[0];
 		let len = list.length;
 		let rnd = Math.floor(Math.random() * len);
 		if(len === 0) return false;

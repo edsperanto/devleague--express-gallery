@@ -20,5 +20,6 @@
     "database": "architekt",
     "host": "127.0.0.1",
     "dialect": "postgres"
-  }
+  },
+	"randomize": false
 }
