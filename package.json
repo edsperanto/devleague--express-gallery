@@ -28,18 +28,18 @@
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
-    "body-parser": "^1.16.1",
-    "connect-redis": "^3.2.0",
+    "body-parser": "^1.17.1",
+    "connect-redis": "^3.3.0",
     "cookie-parser": "^1.4.3",
-    "express": "^4.14.1",
+    "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
-    "express-session": "^1.15.1",
+    "express-session": "^1.15.2",
     "handlebars": "^4.0.6",
-    "method-override": "^2.3.7",
+    "method-override": "^2.3.8",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "pg": "^6.1.2",
-    "redis": "^2.6.5",
-    "sequelize": "^3.30.2"
+    "pg": "^6.2.2",
+    "redis": "^2.7.1",
+    "sequelize": "^3.30.4"
   }
 }

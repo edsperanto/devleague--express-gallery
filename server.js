@@ -1,7 +1,7 @@
 // server
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4001;
 
 // handlebars
 const handlebars = require('express-handlebars');
@@ -56,7 +56,6 @@ passport.use(new LocalStrategy (
 	function(username, password, done) {
 		User.findOne({where: {username: username}}).then(user => {
 			if(user === null) {
-				// console.log('user failed');
 				done(null, false, {message: 'bad username'});
 			}else{
 				bcrypt.compare(password, user.password).then(res => {
@@ -77,7 +76,19 @@ passport.deserializeUser(({id}, done) => {
 app.use(loadUser);
 app.use(showLogout(app));
 
+// routes
+
+// const baseUrl = 'https://edwardgao.com/projects/express-gallery';
+const baseUrl = '/projects/express-gallery';
+
 app.use(express.static('./public'));
+
+app.use((req, res, next) => {
+	console.log('hostname: ', req.hostname);
+	console.log('baseUrl: ', req.baseUrl);
+	console.log('path: ', req.path);
+	next();
+});
 
 app.get('/', (req, res) => {
 	gen.allListing(Photo)
@@ -96,29 +107,27 @@ app.get('/login', (req, res) => {
 
 app.post('/login', passport.
 	authenticate('local', {
-		successRedirect: '/success',
-		failureRedirect: '/login'
+		successRedirect: `${baseUrl}/success`,
+		failureRedirect: `${baseUrl}/login`
 	}));
 
 app.get('/logout', (req, res) => {
 	req.logout();
-	res.redirect(gen.URI())
+	res.redirect(baseUrl + gen.URI())
 });
  
 app.get('/success', (req, res) => {
-	res.redirect(gen.URI());
+	res.redirect(baseUrl + gen.URI());
 });
 
 app.post('/user/new', (req, res) => {
-	console.log('gen new');
 	bcrypt.genSalt(saltRounds, function(err, salt) {
 		bcrypt.hash(req.body.password, salt, function(err, hash) {
-			console.log('hash: ', hash);
 			User.create({
 				username: req.body.username,
 				password: hash
 			}).then(_ => {
-				res.redirect('/login');
+				res.redirect(`${baseUrl}/login`);
 			});
 		});
 	});
@@ -132,7 +141,7 @@ app.get('/404', (req, res) => {
 app.use('/gallery', isAuthenticated, gallery);
 
 app.use((req, res) => {
-	res.redirect('/404');
+	res.redirect(baseUrl + '/404');
 });
 
 if(!module.parent) {

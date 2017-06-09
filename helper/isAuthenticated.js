@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
 	const privAcc = priv.some(url => url.test(req.originalUrl));
 	if(req.method !== 'GET' || privAcc) {
 		if(req.isAuthenticated()) next();
-		else res.redirect('/login');
+		else res.redirect('/projects/express-gallery/login');
 	} else {
 		next();
 	}
