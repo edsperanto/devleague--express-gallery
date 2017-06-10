@@ -83,13 +83,6 @@ const baseUrl = '/projects/express-gallery';
 
 app.use(express.static('./public'));
 
-app.use((req, res, next) => {
-	console.log('hostname: ', req.hostname);
-	console.log('baseUrl: ', req.baseUrl);
-	console.log('path: ', req.path);
-	next();
-});
-
 app.get('/', (req, res) => {
 	gen.allListing(Photo)
 		.then(data => {
